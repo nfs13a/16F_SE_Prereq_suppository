@@ -34,7 +34,29 @@ Results |
 3. Helpful criticism
 
 
-Stephen Nagy
+Steven Nagy
+
+-----------
+Strengths |
+-----------
+1. Bringing order to chaos
+2. Get things done
+3. Attention to detail
+
+--------
+Values |
+--------
+1. Prefer collaboration (paired coding is helpful)
+2. Don't like being micromanaged, but sometimes should be
+3. Minimum viable product first, then perfect
+
+---------
+Results |
+---------
+1. Analysis of the problem
+2. A plan for the how to implement
+3. Code that works properly, based on the above
+
 
 Nevan Simone
 strengths:
