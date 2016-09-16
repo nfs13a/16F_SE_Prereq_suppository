@@ -1,0 +1,21 @@
+cucumber/java/commandline okay
+say go: print students that do not belong in the class
+we have comma separate values file with students and all the classes they have taken
+for a single class
+includes grades also
+student id, course, grade, date
+	only matters what classes they have passed with high enough grade
+does not have current course
+1 row per class that a person has taken
+id: 0 digit string, numeric
+up to 5000 per student
+up to 300 possible classes
+letter grade: A = 4.0, B = 3.0. … F = 2.0
+types of prereq: which classes with what grades
+2016-17 catalog
+input: enter course number; output: students that should not be there
+use CRN for course number
+box agnostic
+backup database
+javacode that talks to database
+script for users and databases
