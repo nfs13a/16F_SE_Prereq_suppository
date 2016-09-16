@@ -3,7 +3,7 @@ Software Engineering Project Team
 
 Team Name: Lukkedoerendunandurraskewdylooshoofermoyportertooryzooysphalnabortansporthaokansakroidverjkapakkapuk
 
-Preston (well formatted)
+#Preston (well formatted)
 
 -----------
 Strengths |
@@ -34,7 +34,7 @@ Results |
 3. Helpful criticism
 
 
-Steven Nagy
+#Steven Nagy
 
 -----------
 Strengths |
@@ -43,12 +43,19 @@ Strengths |
 2. Get things done
 3. Attention to detail
 
---------
-Values |
---------
+-------------
+Performance |
+-------------
 1. Prefer collaboration (paired coding is helpful)
 2. Don't like being micromanaged, but sometimes should be
 3. Minimum viable product first, then perfect
+
+--------
+Values |
+--------
+1. Respect for others
+2. Quality job
+3. Continuous Improvement
 
 ---------
 Results |
@@ -58,23 +65,31 @@ Results |
 3. Code that works properly, based on the above
 
 
-Nevan Simone
-strengths:
+#Nevan Simone
+-----------
+Strengths |
+-----------
 1.I stay on schedule
 2.I listen and teach well?
 3.I do well supporting people with drive, motivation
 
-preform:
+-------------
+Performance |
+-------------
 1.I hate micromanaging but like paired-programming
 2.I am not at all morning person, unless I get enough sleep
 3.I work best with people when not stressed
 
-valus:
+--------
+Values |
+--------
 1.I need to know I can trust people to get things done/information to me/etc. when needed and they are available
 2.I value work at reasonable times, and helping people at reasonable times
 3.I value obvious effort, and honesty if now is not the right time.
 
-results:
+---------
+Results |
+---------
 1.I will write things that work, or ask for help if it does not.
 2.I intend to make an A in this class, so my work will reflect that
 3.I can do nearly anything but do not want to be a manager. Nor do I want to just conform to the will of [the_group - me]
