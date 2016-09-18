@@ -1,0 +1,1 @@
+Feature: people take a class
