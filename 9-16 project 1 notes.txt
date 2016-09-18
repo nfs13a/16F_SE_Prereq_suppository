@@ -18,7 +18,7 @@ does not have current course
 id: 0 digit string, numeric
 up to 5000 per student
 up to 300 possible classes
-letter grade: A = 4.0, B = 3.0. … F = 2.0
+letter grade: A = 4.0, B = 3.0. … F = 0.0
 types of prereq: which classes with what grades
 2016-17 catalog
 
