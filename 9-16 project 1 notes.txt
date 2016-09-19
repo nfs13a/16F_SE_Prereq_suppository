@@ -21,6 +21,7 @@ up to 300 possible classes
 letter grade: A = 4.0, B = 3.0. … F = 0.0
 types of prereq: which classes with what grades
 2016-17 catalog
+includes teachers of classes
 
 Implementation ideas:
 backup database
