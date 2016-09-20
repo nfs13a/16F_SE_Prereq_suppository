@@ -35,13 +35,17 @@ int main() {
 	
 	//make 10 students
 	for (int j = 0; j < 10; j++) {
+		//banner
+		string banner = "000";
+		for (int k = 0; k < 6; k++) {
+			char newC = rand() % 10 + 48;
+			cout << "char: " << newC;
+			banner = banner + newC;
+		}
+		cout << endl;
 		//classes		
 		for (int k = rand() % 5 + 0; k < 10; k++) {
-			//fout << prefixes[rand() % 5] << "," << suffixes[rand() % 9];
-			fout << "000";
-			for (int k = 0; k < 6; k++)
-				fout << rand() % 9;
-			fout << ",";
+			fout << banner << ",";
 			cout << "banner id" << endl;
 			fout << prefixes.at(rand() % 5) << suffixes.at(rand() % 9) << ",";
 			char c = rand() % 6 + 65;
