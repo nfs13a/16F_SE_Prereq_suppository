@@ -33,33 +33,30 @@ int main() {
 	ofstream fout;
 	fout.open(filename.c_str());
 	
-	for (int i = 10902; i <= 10903; i++) {
-		//CRN
-		fout << i << ",";
-		cout << "CRN" << endl;
+	//make 10 students
+	for (int j = 0; j < 10; j++) {
+		//banner id
+		fout << "000";
+		for (int k = 0; k < 6; k++)
+			fout << rand() % 9;
+		fout << ",";
+		cout << "banner id" << endl;
 
-		//make 10 students
-		for (int j = 0; j < 10; j++) {
-			//banner id
+		//classes		
+		for (int k = rand() % 5 + 0; k < 10; k++) {
+			//fout << prefixes[rand() % 5] << "," << suffixes[rand() % 9];
 			fout << "000";
 			for (int k = 0; k < 6; k++)
 				fout << rand() % 9;
 			fout << ",";
 			cout << "banner id" << endl;
-
-			//classes		
-			for (int k = rand() % 5 + 0; k < 10; k++) {
-				//fout << prefixes[rand() % 5] << "," << suffixes[rand() % 9];
-				fout << prefixes.at(rand() % 5) << suffixes.at(rand() % 9) << ",";
-				char c = rand() % 6 + 65;
-				while (c == 'E')
-					c = rand() % 6 + 65;
-				fout << c << ",";
-			}
-			cout << "class list" << endl;
+			fout << prefixes.at(rand() % 5) << suffixes.at(rand() % 9) << ",";
+			char c = rand() % 6 + 65;
+			while (c == 'E')
+				c = rand() % 6 + 65;
+			fout << c << "," << rand() % 3 + 1 << endl;
 		}
-
-		fout << "\n";
+		cout << "class list" << endl;
 	}
   	fout.close();
 }
