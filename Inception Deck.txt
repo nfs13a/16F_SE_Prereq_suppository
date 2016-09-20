@@ -1,32 +1,39 @@
+1.
 Q: Why are we here?
 A: To provide a product to professors that does a service. Service: reporting all students in a given class that do not meet the prerequesites
 
+2.
 Q: Elevator pitch
 A: We are developing a command line tool to help professors sort out which students don't belong in their classes, due to a lack or prereqs. Information on the students and the relevant information from their transcripts are taken from a csv and when the professor uses the tool can be quickly brought up from a database to weed out those that don't belong there.
 
-Q: 
-A: 
+3.
+Q: Design a product box
+A: PRESTON
 
-Q: 
-A: 
+4.
+Q: Create a NOT list
+A: GROUP
 
-Q: 
-A: 
+5.
+Q: Meet your neighbors
+A: --talk to Dr. Clements--
 
-Q: 
-A: 
+6.
+Q: Show the solution
+A: --see image to be created--
 
-Q: 
-A: 
+7.
+Q: Ask what keeps us up at night
+A: Explosively unmanagable scope; not receiving all requirements; clashing schedules; meeting all demos but not the final deadline
 
-Q: 
-A: 
+8.
+Q: Size it up
+A: two weeks???
 
-Q: 
-A: 
+9.
+Q: Be clear on what's going to give
+A: Winning the project competition;
 
-Q: 
-A: 
-
-Q: 
-A: 
+10.
+Q: Show what it's going to take
+A: some amount of small to medium progress every day; flexible team;
