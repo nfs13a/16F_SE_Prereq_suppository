@@ -12,7 +12,11 @@ A: PRESTON
 
 4.
 Q: Create a NOT list
-A: GROUP
+A: -NOT going to wait until due date to get demo done.
+-NOT here to create a full scale application. 
+-NOT assuming consensus where there is none.
+-NOT going to not turn this in on time.
+-NOT leaving anything unimplemented or untested before Demo
 
 5.
 Q: Meet your neighbors
