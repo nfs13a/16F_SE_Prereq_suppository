@@ -8,7 +8,13 @@ A: We are developing a command line tool to help professors sort out which stude
 
 3.
 Q: Design a product box
-A: PRESTON
+A: The Student Prereq Verification Tool
+-Allows for quick and easy ID of students that don't belong
+-One file provided, one command typed, and it runs!
+-Only requires one easily exported CSV
+-Fast runtimes! Simple output! Gets it right, everytime!*
+
+*Everytime that the information submitted via CSV is accurate.
 
 4.
 Q: Create a NOT list
