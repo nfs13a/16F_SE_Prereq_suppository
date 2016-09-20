@@ -35,13 +35,6 @@ int main() {
 	
 	//make 10 students
 	for (int j = 0; j < 10; j++) {
-		//banner id
-		fout << "000";
-		for (int k = 0; k < 6; k++)
-			fout << rand() % 9;
-		fout << ",";
-		cout << "banner id" << endl;
-
 		//classes		
 		for (int k = rand() % 5 + 0; k < 10; k++) {
 			//fout << prefixes[rand() % 5] << "," << suffixes[rand() % 9];
