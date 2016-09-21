@@ -1,5 +1,6 @@
 Customer:
-Given courses and their prereqs, and students and their courses taken and grades earned, we will be able to report which students may and may not be in the courses
+We will be able to store and retrieve data on courses, namely name and prerequesites.
+We will be able to store and retrieve data on students, namely banner id's, courses taken, and grades earned.
 Technical:
 We will use cucumber and java to create test cases, store given data, and evaluate test cases
 
