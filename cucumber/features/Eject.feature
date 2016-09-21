@@ -12,3 +12,9 @@ Feature: people take a class
 		Then students "000174094,000795431,000154209,000266038,000349651,000586124,000325258,000825441,000634288" should not be in the class
 
 	#Scenario: Dr. Clements enters ACCT 324 's CRN
+
+	Scenario: student takes a class
+		Given student "000000001" has taken courses "ACCT210"
+		Then the student has taken 1 course
+		And the student may take "ACCT211"
+		And the student may not take "ACCT324"
