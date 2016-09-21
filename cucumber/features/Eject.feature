@@ -14,7 +14,17 @@ Feature: people take a class
 	#Scenario: Dr. Clements enters ACCT 324 's CRN
 
 	Scenario: student takes a class
-		Given student "000000001" has taken courses "ACCT210"
+		Given course "ACCT211" has prerequesites "ACCT210,C"
+		And course "ACCT324" has prerequesites "ACCT210,C,BUSA120,C"
+		And student "000000001" has taken courses "ACCT210" with grade "C"
 		Then the student has taken 1 course
 		And the student may take "ACCT211"
 		And the student may not take "ACCT324"
+
+	Scenario:
+		Given course "ACCT211" has prerequesites "ACCT210,C"
+		And a student "000000004" has taken courses "ACCT210" with grade "B"
+		And a student "000000002" has taken courses "ACCT209" with grade "A"
+		Then course "ACCT211" has 2 prerequesites
+		And student "000000004" may take "ACCT211"
+		And student "000000002" may not take "ACCT211"
