@@ -42,5 +42,10 @@ public class EjectionTest {
 		assertEquals(ts.get(banner).getTranscript(), transcript);
 	}
 	
+	@Then("^\"([^\"]*)\" class count should be (\\d+)$")
+	public void classCountShouldBe(String banner, int classCount) throws Throwable {
+		assertEquals(ts.get(banner).classCount(), classCount);
+	}
+	
 
 }
