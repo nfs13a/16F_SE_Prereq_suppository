@@ -3,9 +3,11 @@ Instructor: the last name of a teacher of a class; there can be multiple
 Student: a 9 digit numeric banner ID, all of which currently begin with 000
 	-Students have taken courses and have grades for those courses
 Class: a specific CRN instance of a course, e.g. 10903 is the class to ACCT 324 during Fall '16
-Course: an offered subject that provides graduation credit on some degree plan that can be offered whenever ACU wants, e.g. IT 110
+Course: an offered subject that provides graduation credit on some degree plan that can be offered whenever ACU wants, identified by a designation
 GPA table: | A | 4.0 |
            | B | 3.0 |
            | C | 2.0 |
            | D | 1.0 |
            | F | 0.0 |
+designation: an identifier of a course
+	structure: 2-4 capital letters followed by a three-digit number, e.g. IT110 or ACCT324

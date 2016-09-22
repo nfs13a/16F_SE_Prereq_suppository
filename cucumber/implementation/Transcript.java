@@ -1,15 +1,11 @@
-/*
- * Nevan Simone
- * 9/9/16
- * CS374.01
- * Dr. Reeves
- * 
- * QUIZ 1
- */
-
 package implementation;
 
 import java.util.*;
+
+/**
+ * Lukkedoerendunandurraskewdylooshoofermoyportertooryzooysphalnabortansporthaokansakroidverjkapakkapuk
+ * 9/21 - Nevan and Stephen: created implementation to store student data - courses and grades, GPA, and hours 
+ */
 
 public class Transcript {
 	private int hoursTaken;
