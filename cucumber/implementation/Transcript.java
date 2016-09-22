@@ -12,6 +12,7 @@ public class Transcript {
 	private double numPoints;	//before divided by hours to get true GPA
 	private int numClasses;
 	private int passed;
+	private Vector<String> classesList;
 	private Map<String, String> coursesAndGrades;
 	
 	public Transcript() {
@@ -19,11 +20,16 @@ public class Transcript {
 		numPoints = 0.0;
 		numClasses = 0;
 		passed = 0;
+		classesList = new Vector<String>();
 		coursesAndGrades = new HashMap<String, String>();
 	}
 	
 	public void takeClass (String aClassname, String aGrade, int inHours) {
-		coursesAndGrades.put(aClassname, aGrade);
+		if (!coursesAndGrades.containsKey(aClassname) || coursesAndGrades.get(aClassname).toCharArray()[0] < aGrade.toCharArray()[0])
+			coursesAndGrades.put(aClassname, aGrade);
+		if (!classesList.contains(aClassname))
+			classesList.add(aClassname);
+		
 		hoursTaken += inHours;
 		numPoints += (double) (convertGrade(aGrade) * inHours);
 		if (!aGrade.equals("F"))
@@ -70,8 +76,10 @@ public class Transcript {
 	
 	public String getTranscript(){
 		String fullList = "";
-		for (Map.Entry<String,String> entry : coursesAndGrades.entrySet())
-			fullList += entry.getKey() + "," + entry.getValue() + ",";
+		/*for (Map.Entry<String,String> entry : coursesAndGrades.entrySet())
+			fullList += entry.getKey() + "," + entry.getValue() + ",";*/
+		for (String str : classesList)
+			fullList += str + "," + coursesAndGrades.get(str) + ",";
 		fullList = fullList.substring(0, fullList.length() - 1);
 		return fullList;
 		
