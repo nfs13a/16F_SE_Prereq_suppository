@@ -46,6 +46,18 @@ Feature: people take a class
 		Then the prerequesites for "IT110" are ""
 
 	Scenario: info about student
-		Given student "000000001"
-		And course "ACCT210" grade "A"
-		Then their transcript should read "ACCT210,A"
+		Given student "000000001" has taken course "ACCT210" with grade "A"
+		Then "000000001" transcript should read "ACCT210,A"
+		
+	Scenario: multiple classes with multiple prerequisites
+	  Given course "ACCT210" has prerequesites "ACCT209,C,ACCT208,D"
+	  Given course "CS377" has prerequesites "CS120,C,CS220,A"
+	  Then the prerequesites for "ACCT210" are "ACCT209,C,ACCT208,D"
+	  Then the prerequesites for "CS377" are "CS120,C,CS220,A"
+	
+	Scenario: Students with class counts
+	  Given student "000000001" has taken course "CS120" with grade "C"
+	  Given student "000000001" has taken course "CS220" with grade "B"
+	  Given student "000000002" has taken course "IT210" with grade "A"
+	  Then "000000001" transcript should read "CS120,C,CS220,B"
+	  And "000000002" transcript should read "IT210,A"
