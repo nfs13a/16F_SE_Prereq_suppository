@@ -25,7 +25,7 @@ public class Transcript {
 	}
 	
 	public void takeClass (String aClassname, String aGrade, int inHours) {
-		if (!coursesAndGrades.containsKey(aClassname) || coursesAndGrades.get(aClassname).toCharArray()[0] < aGrade.toCharArray()[0])
+		/*if (!coursesAndGrades.containsKey(aClassname) || coursesAndGrades.get(aClassname).toCharArray()[0] < aGrade.toCharArray()[0])
 			coursesAndGrades.put(aClassname, aGrade);
 		if (!classesList.contains(aClassname))
 			classesList.add(aClassname);
@@ -34,7 +34,26 @@ public class Transcript {
 		numPoints += (double) (convertGrade(aGrade) * inHours);
 		if (!aGrade.equals("F"))
 			passed++;
-		numClasses++;
+		numClasses++;*/
+		
+		
+		if (!classesList.contains(aClassname)) {
+			hoursTaken += inHours;
+			numPoints += (double) (convertGrade(aGrade) * inHours);
+			numClasses++;
+			if (!aGrade.equals("F"))
+				passed++;
+			classesList.add(aClassname);
+			coursesAndGrades.put(aClassname, aGrade);
+		} else if (coursesAndGrades.get(aClassname).charAt(0) > aGrade.charAt(0)) {
+			//System.out.println("Old: " + coursesAndGrades.get(aClassname) + "\nNew: " + aGrade);
+			if (coursesAndGrades.get(aClassname).charAt(0) == 'F')
+				passed++;
+			numPoints -= (double) (convertGrade(coursesAndGrades.get(aClassname)) * inHours);
+			numPoints += (double) (convertGrade(aGrade) * inHours);
+			coursesAndGrades.put(aClassname, aGrade);
+		}
+		
 	}
 	
 	private double convertGrade(String letter) {

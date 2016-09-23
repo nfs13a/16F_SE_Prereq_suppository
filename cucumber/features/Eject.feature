@@ -83,3 +83,13 @@ Feature: people take a class
 		Then "000000001" gpa should be "2.5"
 		And "000000002" gpa should be "3.33"
 		And "000000003" gpa should be "0"
+
+	Scenario: Student retakes class 5 times, for some reason
+		Given student "000675309" has taken course "IT110" with grade "F"
+		And student "000675309" has taken course "IT110" with grade "F"
+		And student "000675309" has taken course "IT110" with grade "D"
+		And student "000675309" has taken course "IT110" with grade "A"
+		And student "000675309" has taken course "IT110" with grade "C"
+		Then "000675309" transcript should read "IT110,A"
+		And "000675309" class count should be 1
+		And "000675309" gpa should be "4.0"
