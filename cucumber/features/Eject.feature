@@ -93,3 +93,8 @@ Feature: people take a class
 		Then "000675309" transcript should read "IT110,A"
 		And "000675309" class count should be 1
 		And "000675309" gpa should be "4.0"
+
+	Scenario: info about ACCT211
+		Given course "ACCT211" has prerequesites "ACCT210"
+		And course "ACCT211" has prerequesites "ACCT210,C"
+		Then the prerequesites for "ACCT211" are "ACCT210,C"
