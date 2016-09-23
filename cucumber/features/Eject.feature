@@ -1,6 +1,6 @@
 Feature: people take a class
 
-#he seems to only ever teaach these two classes, but could be more
+#he seems to only ever teach these two classes, but could be more
 #sometimes teaches more than one section
 
 #for fall 2016: 
@@ -72,3 +72,14 @@ Feature: people take a class
 	  Then "000000001" class count should be 2
 	  And "000000002" class count should be 3
 	  And "000000003" class count should be 1
+
+	Scenario: Students with gpas
+	  Given student "000000001" has taken course "CS120" with grade "C"
+	  Given student "000000001" has taken course "CS220" with grade "B"
+	  Given student "000000002" has taken course "IT210" with grade "A"
+	  Given student "000000002" has taken course "IT211" with grade "C"
+	  Given student "000000002" has taken course "MATH377" with grade "A"
+	  Given student "000000003" has taken course "IS411" with grade "F"
+	  Then "000000001" gpa should be "2.5"
+	  And "000000002" gpa should be "3.33"
+	  And "000000003" gpa should be "0"
