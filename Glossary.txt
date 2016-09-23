@@ -11,3 +11,4 @@ GPA table: | A | 4.0 |
            | F | 0.0 |
 designation: an identifier of a course
 	structure: 2-4 capital letters followed by a three-digit number, e.g. IT110 or ACCT324
+roster: a list of students, no relation to any particular class

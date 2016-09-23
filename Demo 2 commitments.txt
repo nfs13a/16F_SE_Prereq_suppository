@@ -1,0 +1,8 @@
+Client:
+Given a number of students, we will be able to create a roster.
+Given a catalog of courses and a roster of students, we will be able to determine which students can take which courses.
+
+Notes:
+roster
+no parser, so don't read in csv
+compare student transcripts to class prerequesites
