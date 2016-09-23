@@ -47,8 +47,5 @@ public class EjectionTest {
 		assertEquals(ts.get(banner).classCount(), classCount);
 	}
 	
-	@Then("^\"([^\"]*)\" gpa should be \"([^\"]*)\"$")
-	public void gpaShouldBe(String banner, String gpa) throws Throwable {
-		assertEquals(ts.get(banner).gpa(), Double.parseDouble(gpa), .01);
-	}
+
 }
