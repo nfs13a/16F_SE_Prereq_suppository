@@ -1,16 +1,18 @@
-prerequisite: minimum current total GPA, passed course, or passed course with minimum GPA in that course
+prerequisite: Requirements necessary before one can be allowed to take a course. Potential prereqs: minimum current total GPA, passed course, or passed course with minimum letter grade in that course
 instructor: the last name of a teacher of a class; there can be multiple
 student: a 9 digit numeric banner ID, all of which currently begin with 000
 	-Students have taken courses and have grades for those courses
 class: a specific CRN instance of a course, e.g. 10903 is the class to ACCT 324 during Fall '16
 course: an offered subject that provides graduation credit on some degree plan that can be offered whenever ACU wants, identified by a designation
-grade: an alpha-grade, semi-synonimous with GPA, which are equivalent to decimal numbers shown below
-GPA: total grade of a student, or sometimes grade earned in a class
-GPA table: | A | 4.0 |
-           | B | 3.0 |
-           | C | 2.0 |
-           | D | 1.0 |
-           | F | 0.0 |
+grade: an alpha-grade, upon which GPA is partially based, which are equivalent to decimal quality values shown below
+hours: the number of hours a course counts for, upon which GPA is partially based
+GPA: total weighted grade point average of a student
+Grade GPA value table:  | A | 4.0 |
+           		| B | 3.0 |
+           		| C | 2.0 |
+        		| D | 1.0 |
+      		     	| F | 0.0 |
 designation: an identifier of a course
 	structure: 2-4 capital letters followed by a three-digit number, e.g. IT110 or ACCT324
-roster: a list of students, no relation to any particular class
+roster: A list of students, no relation to any particular class
+catalog: A list of courses and their prerequisites
