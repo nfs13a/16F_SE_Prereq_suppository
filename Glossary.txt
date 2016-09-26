@@ -1,9 +1,11 @@
-Prerequisite: minimum current total GPA, passed course, or passed course with minimum GPA in that course
-Instructor: the last name of a teacher of a class; there can be multiple
-Student: a 9 digit numeric banner ID, all of which currently begin with 000
+prerequisite: minimum current total GPA, passed course, or passed course with minimum GPA in that course
+instructor: the last name of a teacher of a class; there can be multiple
+student: a 9 digit numeric banner ID, all of which currently begin with 000
 	-Students have taken courses and have grades for those courses
-Class: a specific CRN instance of a course, e.g. 10903 is the class to ACCT 324 during Fall '16
-Course: an offered subject that provides graduation credit on some degree plan that can be offered whenever ACU wants, identified by a designation
+class: a specific CRN instance of a course, e.g. 10903 is the class to ACCT 324 during Fall '16
+course: an offered subject that provides graduation credit on some degree plan that can be offered whenever ACU wants, identified by a designation
+grade: an alpha-grade, semi-synonimous with GPA, which are equivalent to decimal numbers shown below
+GPA: total grade of a student, or sometimes grade earned in a class
 GPA table: | A | 4.0 |
            | B | 3.0 |
            | C | 2.0 |
