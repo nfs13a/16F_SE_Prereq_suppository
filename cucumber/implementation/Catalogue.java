@@ -6,7 +6,7 @@ import java.util.Vector;
 
 /**
  * Lukkedoerendunandurraskewdylooshoofermoyportertooryzooysphalnabortansporthaokansakroidverjkapakkapuk
- * 9/21 - Nevan and Stephen: created implementation to store course data - designation and prerequesites
+ * 9/21 - Nevan and Stephen: created implementation to store course data - designation and prerequisites
  */
 
 public class Catalogue {
@@ -17,6 +17,7 @@ public class Catalogue {
 		coursesData = new HashMap<String, Vector<String>>();
 	}
 	
+	//stores a class and its prereqs
 	public void add(String courseName, String prereqList) {
 		Vector<String> temp = new Vector<String>();
 		int i = 0;
@@ -32,6 +33,10 @@ public class Catalogue {
 		coursesData.put(courseName, temp);
 	}
 	
+	/*
+	 * retrieves the prereqs of a given class 
+	 * returns a string in the original format of the input
+	 */
 	public String getPrereqs(String courseName) {
 		String fullList = "";
 		for (String str : coursesData.get(courseName))

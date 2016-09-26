@@ -14,46 +14,46 @@ Feature: people take a class
 	#Scenario: Dr. Clements enters ACCT 324 's CRN
 
 	#Scenario: student takes a class
-		#Given course "ACCT211" has prerequesites "ACCT210,C"
-		#And course "ACCT324" has prerequesites "ACCT210,C,BUSA120,C"
+		#Given course "ACCT211" has prerequisites "ACCT210,C"
+		#And course "ACCT324" has prerequisites "ACCT210,C,BUSA120,C"
 		#And student "000000001" has taken courses "ACCT210" with grade "C"
 		#Then student "000000001" has taken 1 course
 		#And student "000000001" may take "ACCT211"
 		#And student "000000001" may not take "ACCT324"
 
 	#Scenario:
-		#Given course "ACCT211" has prerequesites "ACCT210,C"
+		#Given course "ACCT211" has prerequisites "ACCT210,C"
 		#And a student "000000004" has taken courses "ACCT210" with grade "B"
 		#And a student "000000002" has taken courses "ACCT209" with grade "A"
-		#Then course "ACCT211" has 2 prerequesites
+		#Then course "ACCT211" has 2 prerequisites
 		#And student "000000004" may take "ACCT211"
 		#And student "000000002" may not take "ACCT211"
 
 	Scenario: info about ACCT211
-		Given course "ACCT211" has prerequesites "ACCT210,C"
-		Then the prerequesites for "ACCT211" are "ACCT210,C"
+		Given course "ACCT211" has prerequisites "ACCT210,C"
+		Then the prerequisites for "ACCT211" are "ACCT210,C"
 
-	Scenario: info about ACCT211
-		Given course "ACCT324" has prerequesites "ACCT210,C,BUSA120,C"
-		Then the prerequesites for "ACCT324" are "ACCT210,C,BUSA120,C"
+	Scenario: info about ACCT324
+		Given course "ACCT324" has prerequisites "ACCT210,C,BUSA120,C"
+		Then the prerequisites for "ACCT324" are "ACCT210,C,BUSA120,C"
 
 	Scenario: info about fake class DET410
-		Given course "DET410" has prerequesites "DET000,DET100,C"
-		Then the prerequesites for "DET410" are "DET000,D,DET100,C"
+		Given course "DET410" has prerequisites "DET000,DET100,C"
+		Then the prerequisites for "DET410" are "DET000,D,DET100,C"
 
 	Scenario: info about IT110
-		Given course "IT110" has prerequesites ""
-		Then the prerequesites for "IT110" are ""
+		Given course "IT110" has prerequisites ""
+		Then the prerequisites for "IT110" are ""
 
 	Scenario: info about student
 		Given student "000000001" has taken course "ACCT210" with grade "A"
 		Then "000000001" transcript should read "ACCT210,A"
 		
 	Scenario: multiple classes with multiple prerequisites
-	  Given course "ACCT210" has prerequesites "ACCT209,C,ACCT208,D"
-	  Given course "CS377" has prerequesites "CS120,C,CS220,A"
-	  Then the prerequesites for "ACCT210" are "ACCT209,C,ACCT208,D"
-	  Then the prerequesites for "CS377" are "CS120,C,CS220,A"
+	  Given course "ACCT210" has prerequisites "ACCT209,C,ACCT208,D"
+	  Given course "CS377" has prerequisites "CS120,C,CS220,A"
+	  Then the prerequisites for "ACCT210" are "ACCT209,C,ACCT208,D"
+	  Then the prerequisites for "CS377" are "CS120,C,CS220,A"
 	
 	Scenario: Students with transcripts
 	  Given student "000000001" has taken course "CS120" with grade "C"
@@ -95,6 +95,16 @@ Feature: people take a class
 		And "000675309" gpa should be "4.0"
 
 	Scenario: info about ACCT211
-		Given course "ACCT211" has prerequesites "ACCT210"
-		And course "ACCT211" has prerequesites "ACCT210,C"
-		Then the prerequesites for "ACCT211" are "ACCT210,C"
+		Given course "ACCT211" has prerequisites "ACCT210"
+		And course "ACCT211" has prerequisites "ACCT210,C"
+		Then the prerequisites for "ACCT211" are "ACCT210,C"
+
+	#should not need to test how many courses have been passed, since that will not be useful for our final product.
+
+	Scenario: 3 classes
+		Given course "CS130" has prerequisites ""
+		And course "CS230" has prerequisites "CS130,C"
+		And course "CS324" has prerequisites "CS230,IT220,D"
+		Then the prerequisites for "CS130" are ""
+		And the prerequisites for "CS324" are "CS230,D,IT220,D"
+		And the prerequisites for "CS230" are "CS130,C"

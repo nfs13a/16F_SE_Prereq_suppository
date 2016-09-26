@@ -5,4 +5,4 @@ Given a catalog of courses and a roster of students, we will be able to determin
 Notes:
 roster
 no parser, so don't read in csv
-compare student transcripts to class prerequesites
+compare student transcripts to class prerequisites

@@ -11,7 +11,7 @@ public class Transcript {
 	private int hoursTaken;
 	private double numPoints;	//before divided by hours to get true GPA
 	private int numClasses;
-	private int passed;
+	private int passed;	//seems unnecessary for this project, so maybe should be deleted
 	private Vector<String> classesList;
 	private Map<String, String> coursesAndGrades;
 	
@@ -25,37 +25,31 @@ public class Transcript {
 	}
 	
 	public void takeClass (String aClassname, String aGrade, int inHours) {
-		/*if (!coursesAndGrades.containsKey(aClassname) || coursesAndGrades.get(aClassname).toCharArray()[0] < aGrade.toCharArray()[0])
-			coursesAndGrades.put(aClassname, aGrade);
-		if (!classesList.contains(aClassname))
-			classesList.add(aClassname);
-		
-		hoursTaken += inHours;
-		numPoints += (double) (convertGrade(aGrade) * inHours);
-		if (!aGrade.equals("F"))
-			passed++;
-		numClasses++;*/
-		
-		
+		//if student has not taken this course yet
 		if (!classesList.contains(aClassname)) {
 			hoursTaken += inHours;
-			numPoints += (double) (convertGrade(aGrade) * inHours);
+			numPoints += convertGrade(aGrade) * inHours;
 			numClasses++;
 			if (!aGrade.equals("F"))
 				passed++;
 			classesList.add(aClassname);
 			coursesAndGrades.put(aClassname, aGrade);
+		//if student has taken this course but earns a better grade
 		} else if (coursesAndGrades.get(aClassname).charAt(0) > aGrade.charAt(0)) {
 			//System.out.println("Old: " + coursesAndGrades.get(aClassname) + "\nNew: " + aGrade);
 			if (coursesAndGrades.get(aClassname).charAt(0) == 'F')
 				passed++;
-			numPoints -= (double) (convertGrade(coursesAndGrades.get(aClassname)) * inHours);
-			numPoints += (double) (convertGrade(aGrade) * inHours);
+			numPoints -= convertGrade(coursesAndGrades.get(aClassname)) * inHours;
+			numPoints += convertGrade(aGrade) * inHours;
 			coursesAndGrades.put(aClassname, aGrade);
-		}
+		} // else the student earns a non-better grade in a course they have already taken, so its transcript is not affected
 		
 	}
 	
+	/* 
+	 * returns the numerical equivalent of a given letter grade
+	 * returns a double
+	 */
 	private double convertGrade(String letter) {
 		if (letter.equals("A"))
 			return 4.0;
@@ -77,7 +71,7 @@ public class Transcript {
 		return hoursTaken;
 	}
 	
-	public double points() { //answers the total "grade points" earned
+	public double points() { // answers the total "grade points" earned
 		return numPoints;
 	}
 	
@@ -85,18 +79,21 @@ public class Transcript {
 		return points() / hours();
 	}
 	
-	public int getPassed() {
+	public int getPassed() { //returns the number of courses passed
 		return passed;
 	}
 	
+	//returns the alphabetic grade for a given class 
 	public String getGradeOfClass(String className) {
 		return coursesAndGrades.get(className);
 	}
 	
+	/*
+	 * retrieves all classes taken with their respective grades
+	 * returns a String
+	 */
 	public String getTranscript(){
 		String fullList = "";
-		/*for (Map.Entry<String,String> entry : coursesAndGrades.entrySet())
-			fullList += entry.getKey() + "," + entry.getValue() + ",";*/
 		for (String str : classesList)
 			fullList += str + "," + coursesAndGrades.get(str) + ",";
 		fullList = fullList.substring(0, fullList.length() - 1);
