@@ -1,2 +1,2 @@
-javac -cp "jars/*:." step_definitions/EjectionTest.java implementation/Catalogue.java implementation/Transcript.java
+javac -cp "jars/*:." step_definitions/EjectionTest.java implementation/Catalogue.java implementation/Transcript.java implementation/Roster.java implementation/Registrar.java
 java -cp "jars/*:." cucumber.api.cli.Main -p pretty --snippets camelcase -g step_definitions features

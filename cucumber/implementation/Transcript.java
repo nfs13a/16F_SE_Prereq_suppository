@@ -92,12 +92,19 @@ public class Transcript {
 	 * retrieves all classes taken with their respective grades
 	 * returns a String
 	 */
-	public String getTranscript(){
+	public String getTranscript() {
 		String fullList = "";
 		for (String str : classesList)
 			fullList += str + "," + coursesAndGrades.get(str) + ",";
 		fullList = fullList.substring(0, fullList.length() - 1);
 		return fullList;
-		
+	}
+	
+	public Vector<String> getTranscriptData() {
+		return classesList;
+	}
+	
+	public String getGrade(String course) {
+		return coursesAndGrades.get(course);
 	}
 }

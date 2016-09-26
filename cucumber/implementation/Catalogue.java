@@ -44,4 +44,8 @@ public class Catalogue {
 		fullList = fullList.substring(0, fullList.length() - 1);
 		return fullList;
 	}
+	
+	public Vector<String> getPrereqData(String courseName) {
+		return coursesData.get(courseName);
+	}
 }

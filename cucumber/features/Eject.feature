@@ -108,3 +108,11 @@ Feature: people take a class
 		Then the prerequisites for "CS130" are ""
 		And the prerequisites for "CS324" are "CS230,D,IT220,D"
 		And the prerequisites for "CS230" are "CS130,C"
+
+	Scenario: test comparisons of prereqs and transcripts
+		Given course "ACCT211" has prerequisites "ACCT210,C"
+		And student "000000004" has taken course "ACCT210" with grade "B"
+		And student "000000002" has taken course "ACCT209" with grade "A"
+		Then course "ACCT211" has prerequisites "ACCT210,C"
+		And student "000000004" may take "ACCT211" is "true"
+		But student "000000002" may take "ACCT211" is "false"
