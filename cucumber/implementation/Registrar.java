@@ -1,5 +1,11 @@
 package implementation;
 
+/**
+ * Lukkedoerendunandurraskewdylooshoofermoyportertooryzooysphalnabortansporthaokansakroidverjkapakkapuk
+ * 9/26 - Nevan and Stephen: created Registrar to store and manage a Catalogue and a Roster for any given scenario
+ * 9/27 - Preston: fixed a bug that caused students to be ineligible to take a course if the prereq was not first on the list of courses a student had passed
+ */
+
 import java.util.Vector;
 
 import implementation.Catalogue;

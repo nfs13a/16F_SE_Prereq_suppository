@@ -109,6 +109,7 @@ Feature: people take a class
 		And the prerequisites for "CS324" are "CS230,D,IT220,D"
 		And the prerequisites for "CS230" are "CS130,C"
 
+	#9/26 - Nevan and Stephen implemented first test of Registrar
 	Scenario: test comparisons of prereqs and transcripts
 		Given course "ACCT211" has prerequisites "ACCT210,C"
 		And student "000000004" has taken course "ACCT210" with grade "B"
@@ -117,6 +118,7 @@ Feature: people take a class
 		And student "000000004" may take "ACCT211" is "true"
 		But student "000000002" may take "ACCT211" is "false"
 	
+	#9/27 - Preston completed testing for Registrar with the following 3 Scenarios:
 	Scenario: can students take classes
 	  Given course "ACCT211" has prerequisites "ACCT210,C"
 	  And course "CS220" has prerequisites "CS120,D"

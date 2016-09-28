@@ -7,12 +7,16 @@ course: an offered subject that provides graduation credit on some degree plan t
 grade: an alpha-grade, upon which GPA is partially based, which are equivalent to decimal quality values shown below
 hours: the number of hours a course counts for, upon which GPA is partially based
 GPA: total weighted grade point average of a student
-Grade GPA value table:  | A | 4.0 |
-           		| B | 3.0 |
-           		| C | 2.0 |
-        		| D | 1.0 |
-      		     	| F | 0.0 |
+Grade GPA value table:	| A | 4.0 |
+						| B | 3.0 |
+						| C | 2.0 |
+						| D | 1.0 |
+						| F | 0.0 |
 designation: an identifier of a course
 	structure: 2-4 capital letters followed by a three-digit number, e.g. IT110 or ACCT324
 roster: A list of students, no relation to any particular class
-catalog: A list of courses and their prerequisites
+catalog(ue): A list of courses and their prerequisites
+registrar: stores a roster and a catalog
+CRN: course registration number; a 5 digit number unique to a section of a course during a semester
+section: a listing of a course during a semester with a unique CRN to all other sections of all other courses that semester
+semester: fall, spring, or summer

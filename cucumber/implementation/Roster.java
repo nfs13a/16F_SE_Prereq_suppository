@@ -1,5 +1,10 @@
 package implementation;
 
+/**
+ * Lukkedoerendunandurraskewdylooshoofermoyportertooryzooysphalnabortansporthaokansakroidverjkapakkapuk
+ * 9/26 - Nevan and Stephen: Created Roster to store multiple students encapsulated from the step definitions
+ */
+
 import java.util.*;
 import implementation.Transcript;
 
