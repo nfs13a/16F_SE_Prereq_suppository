@@ -116,3 +116,19 @@ Feature: people take a class
 		Then course "ACCT211" has prerequisites "ACCT210,C"
 		And student "000000004" may take "ACCT211" is "true"
 		But student "000000002" may take "ACCT211" is "false"
+	
+	Scenario: can students take classes
+	  Given course "ACCT211" has prerequisites "ACCT210,C"
+	  And course "CS220" has prerequisites "CS120,D"
+	  And course "IT221" has prerequisites "IT120,D,IT220,C"
+	  And student "000000001" has taken course "ACCT210" with grade "D"
+	  And student "000000002" has taken course "CS120" with grade "C"
+	  And student "000000003" has taken course "IT120" with grade "D"
+	  And student "000000003" has taken course "IT220" with grade "D"
+	  And student "000000004" has taken course "IT120" with grade "A"
+	  And student "000000004" has taken course "IT220" with grade "B"
+	  Then student "000000001" may take "ACCT211" is "false"
+	  And student "000000002" may take "CS220" is "true"
+	  And student "000000003" may take "IT221" is "false"
+	  And student "000000004" may take "IT221" is "true"
+	  

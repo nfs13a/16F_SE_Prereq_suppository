@@ -58,13 +58,13 @@ public class Registrar {
 				System.out.println("prereq course: " + tempPrereqs.elementAt(i));
 				System.out.println("grade: " + rs.getGrade(banner, tempTaken.elementAt(j)).charAt(0));
 				System.out.println("prereq grade: " + tempPrereqs.elementAt(i + 1).charAt(0));*/
-				
 				if (tempTaken.elementAt(j).equals(tempPrereqs.elementAt(i)) && rs.getGrade(banner, tempTaken.elementAt(j)).charAt(0) <= tempPrereqs.elementAt(i + 1).charAt(0)) {
 					foundPrereq = true;
 					break;
 				}
-				if (!foundPrereq) return false;
+				
 			}
+			if (!foundPrereq) return false;
 		}
 		
 		return true;
