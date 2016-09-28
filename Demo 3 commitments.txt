@@ -1,0 +1,3 @@
+We will be able to read data from the CSV and store it in a database.
+We will be able to read data from the database and report which students from that database can take which courses.
+We will need to modify current data structure uses to make this work.
