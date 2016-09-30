@@ -1,0 +1,14 @@
+level code - undergrad, graduate, maybe postgraduate?
+class code - fr, so, jr, sr, gr
+crn - 5 digit number identifying course
+subject code - e.g. IT, ACCT, etc.
+course number - e.g. 101, 110, 324, etc.
+billing hours - usually 3
+credit hours - usually 3 if passed
+instructor - e.g. Clements, Curtis
+grade code - A, B, C, D, F, W, WF, " "
+banner id - number, 9 digits, usually 6 digits, sometimes 5, unique to students
+first name - of student
+last name - of student
+middle name - of student
+prefix - of student
