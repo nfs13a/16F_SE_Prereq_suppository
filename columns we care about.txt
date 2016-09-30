@@ -1,5 +1,5 @@
 level code - undergrad, graduate, maybe postgraduate?
-class code - fr, so, jr, sr, gr
+class code - fr, so, jr, sr, gr; describes student, not class, see AH-2 and AQ-2
 crn - 5 digit number identifying course
 subject code - e.g. IT, ACCT, etc.
 course number - e.g. 101, 110, 324, etc.
