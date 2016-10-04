@@ -22,18 +22,22 @@ CREATE TABLE course
 ( code varchar(20) NOT NULL,
 num varchar(20) NOT NULL,
 hours varchar(50) NOT NULL,
-PRIMARY KEY ( code,num)
+PRIMARY KEY ( code, num)
 );
 
 CREATE TABLE courseInstances
 ( CRN varchar(50) NOT NULL,
+code varchar(20) NOT NULL,
 instructor varchar(50) NOT NULL,
 PRIMARY KEY (CRN,code),
 FOREIGN KEY (code) references course(code)
 );
 
 CREATE TABLE studentCoursesTaken
-( earnedHrs int NOT NULL,
+( banner varchar(20) NOT NULL,
+CRN varchar(50) NOT NULL,
+code varchar(20) NOT NULL,
+earnedHrs int NOT NULL,
 grade varchar(10) NOT NULL,
 PRIMARY KEY (CRN,code,banner),
 FOREIGN KEY (code) references course(code),
