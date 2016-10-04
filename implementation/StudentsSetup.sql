@@ -14,7 +14,7 @@ fn varchar(50) NOT NULL,
 ln varchar(50) NOT NULL,
 mn varchar(50) NOT NULL,
 pre varchar(10) NOT NULL,
-classification varchar(10) NOT NULL,w
+classification varchar(10) NOT NULL,
 PRIMARY KEY ( banner )
 );
 
