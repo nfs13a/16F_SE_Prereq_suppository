@@ -1,0 +1,13 @@
+smaller csv's for testing
+
+optimize inserts
+
+prereqs from catalog
+prereq table
+insert prereqs
+
+cucumber tests for smaller csv's
+
+for next wednesday:
+have it install mysql
+have it run on any system we need it to
