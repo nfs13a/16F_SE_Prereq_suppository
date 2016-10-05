@@ -174,4 +174,9 @@ Feature: people take a class
 	  And student "000000003" may take "IT221" is "false"
 	  And student "000000004" may take "IT221" is "true"
 	  And student "000000004" may take "CS220" is "false"
+
+	Scenario:
+		Given CRN "56789" and file "studentTestData1.sql"
+		When I want to know who doesn't belong
+		Then I should know that "000000001" doesn't belong
 	  
