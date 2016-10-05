@@ -24,7 +24,8 @@ CREATE TABLE course
 hours varchar(50) NOT NULL,
 prereqGPA float(5) NOT NULL,
 prereqClass varchar(50) NOT NULL,
-PRIMARY KEY ( code, num)
+prereqEarnedHours int(5) NOT NULL,
+PRIMARY KEY (code)
 );
 
 CREATE TABLE prereqCourse
