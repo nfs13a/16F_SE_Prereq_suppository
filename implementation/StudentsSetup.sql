@@ -21,7 +21,7 @@ PRIMARY KEY ( banner )
 
 CREATE TABLE course
 ( code varchar(20) NOT NULL,
-hours varchar(50) NOT NULL,
+hours int NOT NULL,
 prereqGPA float(5) NOT NULL,
 prereqClass varchar(50) NOT NULL,
 prereqEarnedHours int(5) NOT NULL,
