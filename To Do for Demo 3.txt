@@ -8,6 +8,8 @@ insert prereqs
 
 cucumber tests for smaller csv's
 
+add in a Roster to keep track of GPA
+
 for next wednesday:
 have it install mysql
 have it run on any system we need it to
