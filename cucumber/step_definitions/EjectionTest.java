@@ -9,12 +9,14 @@ package step_definitions;
 import cucumber.api.java.en.*;
 import cucumber.api.PendingException;
 import implementation.Registrar;
+import implementation.JDBCExample;
 import java.util.Map;
 import java.util.HashMap;
 import static org.junit.Assert.*;
 
 public class EjectionTest {
 	private Registrar rg = new Registrar();
+	private JDBCExample je;
 	
 	@Given("^course \"([^\"]*)\" has prerequisites \"([^\"]*)\"$")
 	public void courseHasPrerequisites(String courseDesignation, String prereqList) throws Throwable {
@@ -62,21 +64,13 @@ public class EjectionTest {
 		assertEquals(rg.canStudentTakeCourse(banner, course), Boolean.parseBoolean(takeable));
 	}
 	
-	@Given("^CRN \"([^\"]*)\" and file \"([^\"]*)\"$")
-	public void crnAndFile(String arg1, String arg2) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+	@Given("^database \"([^\"]*)\" and csv \"([^\"]*)\"$")
+	public void databaseAndCsv(String sql, String csv) throws Throwable {
+		je = new JDBCExample(sql, csv);
 	}
 
-	@When("^I want to know who doesn't belong$")
-	public void iWantToKnowWhoDoesnTBelong() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
-
-	@Then("^I should know that \"([^\"]*)\" doesn't belong$")
-	public void iShouldKnowThatDoesnTBelong(String arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+	@Then("^if CRN \"([^\"]*)\" is entered \"([^\"]*)\" may not take the course$")
+	public void ifCRNIsEnteredMayNotTakeTheCourse(String crn, String banner) throws Throwable {
+		assertEquals(je.checkCRN(crn), banner);
 	}
 }

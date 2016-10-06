@@ -176,7 +176,6 @@ Feature: people take a class
 	  And student "000000004" may take "CS220" is "false"
 
 	Scenario:
-		Given CRN "56789" and file "studentTestData1.sql"
-		When I want to know who doesn't belong
-		Then I should know that "000000001" doesn't belong
+		Given database "studentTestData1.sql"
+		Then if CRN "56789" is entered "000000001" may not take the course
 	  
