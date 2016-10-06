@@ -15,13 +15,9 @@ import static org.junit.Assert.*;
 
 public class EjectionTest {
 	private Registrar rg = new Registrar();
-	/*private Catalogue cg = new Catalogue();
-	Roster rs = new Roster();*/
 	
 	@Given("^course \"([^\"]*)\" has prerequisites \"([^\"]*)\"$")
 	public void courseHasPrerequisites(String courseDesignation, String prereqList) throws Throwable {
-		//allows for multiple courses per test
-		//cg.add(courseDesignation, prereqList);
 		rg.addCourse(courseDesignation, prereqList);
 	}
 
@@ -44,19 +40,16 @@ public class EjectionTest {
 	
 	@Then("^\"([^\"]*)\" transcript should read \"([^\"]*)\"$")
 	public void transcriptShouldRead(String banner, String transcript) throws Throwable {
-		//assertEquals(ts.get(banner).getTranscript(), transcript);
 		assertEquals(rg.getStudentInfo(banner), transcript);
 	}
 	
 	@Then("^\"([^\"]*)\" class count should be (\\d+)$")
 	public void classCountShouldBe(String banner, int classCount) throws Throwable {
-		//assertEquals(ts.get(banner).classCount(), classCount);
 		assertEquals(rg.getStudentClassCount(banner), classCount);
 	}
 	
 	@Then("^\"([^\"]*)\" gpa should be \"([^\"]*)\"$")
 	public void gpaShouldBe(String banner, String gpa) throws Throwable {
-		//assertEquals(ts.get(banner).gpa(), Double.parseDouble(gpa), .01);
 		assertEquals(rg.getStudentGPA(banner), Double.parseDouble(gpa), .01);
 	}
 	
@@ -67,6 +60,23 @@ public class EjectionTest {
 		//method loops through student's Transcript to compare prereqs
 		//if a prereq is not met, returns false, else returns true at the end
 		assertEquals(rg.canStudentTakeCourse(banner, course), Boolean.parseBoolean(takeable));
-		//throw new PendingException();
+	}
+	
+	@Given("^CRN \"([^\"]*)\" and file \"([^\"]*)\"$")
+	public void crnAndFile(String arg1, String arg2) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@When("^I want to know who doesn't belong$")
+	public void iWantToKnowWhoDoesnTBelong() throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@Then("^I should know that \"([^\"]*)\" doesn't belong$")
+	public void iShouldKnowThatDoesnTBelong(String arg1) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
 	}
 }
