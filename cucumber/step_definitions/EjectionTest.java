@@ -74,9 +74,9 @@ public class EjectionTest {
 		assertEquals(je.checkCRN(crn), banner);
 	}*/
 	
-	@Given("^CRN \"([^\"]*)\"$")
-	public void crn(String CRN) throws Throwable {
-	    scm = new StudentCourseManager(CRN);
+	@Given("^CSV \"([^\"]*)\"$")
+	public void csv(String csv) throws Throwable {
+	    scm = new StudentCourseManager(csv);
 	    scm.parseCRN();
 	}
 
@@ -158,5 +158,35 @@ public class EjectionTest {
 	@Then("^students \"([^\"]*)\" should be removed from CRN \"([^\"]*)\"$")
 	public void studentsShouldBeRemovedFromCRN(String bannerList, String crn) throws Throwable {
 	    assertEquals(bannerList, scm.getAllStudentsThatDoNotMeetPrereqs(crn));
+	}
+
+	@Then("^course \"([^\"]*)\" has code \"([^\"]*)\"$")
+	public void courseHasCode(String crn, String code) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    assertEquals(code,scm.getCodeFromCRN(crn));
+	}
+
+	@Then("^course \"([^\"]*)\" has a required GPA of \"([^\"]*)\"$")
+	public void courseHasARequiredGPAOf(String crn, String gpa) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    assertEquals(gpa,Double.toString(scm.getCRNGPAPrereq(crn)));
+	}
+
+	@Then("^course \"([^\"]*)\" has a required earned hrs of \"([^\"]*)\"$")
+	public void courseHasARequiredEarnedHrsOf(String crn, String hrs) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	   assertEquals(hrs,Integer.toString(scm.getCRNEarnedHoursPrereq(crn)));
+	}
+
+	@Then("^course \"([^\"]*)\" has a required classification of \"([^\"]*)\"$")
+	public void courseHasARequiredClassificationOf(String crn, String classification) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+		assertEquals(classification,scm.getCRNPrereqClass(crn));
+	}
+
+	@Then("^course \"([^\"]*)\" has prerequisite \"([^\"]*)\"$")
+	public void courseHasPrerequisite(String crn, String output) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+		assertEquals(output,scm.getPrereqsOfCRN(crn));
 	}
 }

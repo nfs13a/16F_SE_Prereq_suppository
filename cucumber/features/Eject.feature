@@ -176,7 +176,7 @@ Feature: people take a class
 		And student "000000004" may take "CS220" is "false"
 
 	Scenario: simple CRN
-		Given CRN "testCSV1.csv"
+		Given CSV "testCSV1.csv"
 		Then student "000817979" exists is "true"
 		And student "000817979" is classification "SR"
 		And student "000361136" is taking CRN "14788" is "false"
@@ -195,7 +195,7 @@ Feature: people take a class
 		And student "000817979" meets the prereqs for CRN "14788" is "true"
 		
 	Scenario: simple CRN
-		Given CRN "testCSV1.csv"
+		Given CSV "testCSV1.csv"
 		Then student "000817979" meets the prereqs for CRN "14788" is "true"
 		And student "000148897" meets the prereqs for CRN "14788" is "false"
 		And student "000361136" meets the prereqs for CRN "14788" is "false"
@@ -205,11 +205,12 @@ Feature: people take a class
 		And students "000000001," should be removed from CRN "14788"
 	
 	Scenario: testing prereqs
-		Given CRN "14788"
-		Then course "ACCT324" has a required GPA of "0.0"
-		Then course "ACCT324" has a required earned hrs of "24"
-		Then course "ACCT324" has a required classification of "FR"
-		Then course "ACCT324" has prerequisite "ACCT211,C,BUSA120,C"
+		Given CSV "testCSV1.csv"
+		Then course "14788" has code "ACCT324"
+		Then course "14788" has a required GPA of "0.0"
+		Then course "14788" has a required earned hrs of "24"
+		Then course "14788" has a required classification of "FR"
+		Then course "14788" has prerequisite "ACCT210,C,BUSA120,C,"
 
 
 	#Scenario:

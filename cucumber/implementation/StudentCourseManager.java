@@ -40,7 +40,7 @@ public class StudentCourseManager {
 				while ((line = br.readLine()) != null) {
 					String[] stuff = StudentCourseManager.newSplit(line);
 					if (i == 1) {
-						System.out.println("Creating database...");
+						//System.out.println("Creating database...");
 						createDatabases(lol + "/tests/StudentsSetup.sql");
 					} else {
 						stmt = conn.createStatement();
@@ -233,7 +233,7 @@ public class StudentCourseManager {
 		ResultSet rs = stmt.executeQuery("SELECT * FROM studentCoursesTaken WHERE banner = '" + banner + "';");
 		Statement lnestmt = conn.createStatement();
 		ResultSet lne = null;
-		System.out.println("student: " + banner);
+		//System.out.println("student: " + banner);
 		while (rs.next()) {
 			String tempGrade = rs.getString("grade");
 			String tempCourse = rs.getString("code");
