@@ -203,6 +203,14 @@ Feature: people take a class
 		And student "000860200" meets the prereqs for CRN "14691" is "false"
 		And student "000896976" meets the prereqs for CRN "14692" is "false"
 		And students "000000001," should be removed from CRN "14788"
+	
+	Scenario: testing prereqs
+		Given CRN "14788"
+		Then course "ACCT324" has a required GPA of "0.0"
+		Then course "ACCT324" has a required earned hrs of "24"
+		Then course "ACCT324" has a required classification of "FR"
+		Then course "ACCT324" has prerequisite "ACCT211,C,BUSA120,C"
+
 
 	#Scenario:
 		#Given database "studentTestData1.sql"
