@@ -101,7 +101,7 @@ public class StudentCourseManager {
 
 		// Database credentials
 		final String USER = "root";
-		final String PASS = "insert here"; // insert your password here
+		final String PASS = ""; // insert your password here
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
