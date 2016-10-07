@@ -192,6 +192,15 @@ Feature: people take a class
 		And CRN "14788" has prereq of classification "FR"
 		And CRN "14788" has prereq of "ACCT211" with minimum grade of "C"
 		And student "000817979" meets the prereqs for CRN "14788" is "true"
+		
+	Scenario: simple CRN
+		Given CRN "testCSV1.csv"
+		Then student "000817979" meets the prereqs for CRN "14788" is "true"
+		And student "000148897" meets the prereqs for CRN "14788" is "false"
+		And student "000361136" meets the prereqs for CRN "14788" is "false"
+		And student "000750483" meets the prereqs for CRN "14788" is "false"
+		And student "000860200" meets the prereqs for CRN "14691" is "false"
+		And student "000896976" meets the prereqs for CRN "14692" is "false"
 
 	#Scenario:
 		#Given database "studentTestData1.sql"

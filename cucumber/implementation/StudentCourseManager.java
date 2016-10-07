@@ -8,15 +8,17 @@ import java.sql.*;
 import java.util.Vector;
 import java.util.Map;
 import java.util.HashMap;
+import java.io.File;
 
 public class StudentCourseManager {
 
 	private String csvPath;
 	private static Connection conn = null;
 	private static Statement stmt = null;
-
+	String lol = new File("").getAbsolutePath();
+	
 	public StudentCourseManager(String CSV) {
-		csvPath = "C:/Users/CPU8/Documents/Github/suppository/cucumber/tests/" + CSV;
+		csvPath = lol + "/tests/" + CSV;
 	}
 
 	public void parseCRN() {
@@ -34,7 +36,7 @@ public class StudentCourseManager {
 					String[] stuff = StudentCourseManager.newSplit(line);
 					if (i == 1) {
 						System.out.println("Creating database...");
-						createDatabases("C:/Users/CPU8/Documents/GitHub/suppository/implementation/StudentsSetup.sql");
+						createDatabases("/home/ubuntu/workspace/SEproject/implementation/StudentsSetup.sql");
 					} else {
 						stmt = conn.createStatement();
 						if (!(stuff[40].isEmpty() || stuff[42].isEmpty() || stuff[35].isEmpty() || stuff[56].isEmpty())) {
@@ -71,13 +73,13 @@ public class StudentCourseManager {
 		// for the prereqs
 		try {
 			br = new BufferedReader(
-					new FileReader("C:/Users/CPU8/Documents/GitHub/suppository/cucumber/tests/PrereqCourses1.csv"));
+					new FileReader(lol + "/tests/PrereqCourses1.csv"));
 			while ((line = br.readLine()) != null) {
 				String[] stuff = StudentCourseManager.newSplit(line);
 				insertPrereqCourses(stuff);
 			}
 			br = new BufferedReader(
-					new FileReader("C:/Users/CPU8/Documents/GitHub/suppository/cucumber/tests/CourseTablePrereqs1.csv"));
+					new FileReader(lol + "/tests/CourseTablePrereqs1.csv"));
 			while ((line = br.readLine()) != null) {
 				String[] stuff = StudentCourseManager.newSplit(line);
 				insertPrereqOtherInfo(stuff);
@@ -211,8 +213,7 @@ public class StudentCourseManager {
 	}
 	
 	public boolean studentTakingCourse(String banner, String crn) throws SQLException {
-		ResultSet rs = stmt
-				.executeQuery("SELECT grade FROM studentCoursesTaken WHERE CRN = '" + crn + "' and banner = '" + banner + "';");
+		ResultSet rs = stmt.executeQuery("SELECT grade FROM studentCoursesTaken WHERE CRN = '" + crn + "' and banner = '" + banner + "';");
 		boolean taking = false;
 		while (rs.next()) {
 			if (rs.getString("grade").equals(""))
@@ -230,13 +231,15 @@ public class StudentCourseManager {
 		while (rs.next()) {
 			String tempGrade = rs.getString("grade");
 			String tempCourse = rs.getString("code");
-			if (!bestPassingCodesAndGrades.containsKey(tempCourse) && tempGrade.charAt(0) < 'F') {
-				bestPassingCodesAndGrades.put(tempCourse, tempGrade);
+			if (!bestPassingCodesAndGrades.containsKey(tempCourse)) {
+				if (tempGrade.charAt(0) < 'F') {
+					bestPassingCodesAndGrades.put(tempCourse, tempGrade);
 
-				lne = lnestmt.executeQuery("SELECT hours FROM course WHERE code = '" + tempCourse + "';");
-				lne.next();
+					lne = lnestmt.executeQuery("SELECT hours FROM course WHERE code = '" + tempCourse + "';");
+					lne.next();
 
-				totalHours += lne.getInt("hours");
+					totalHours += lne.getInt("hours");
+				}
 			} else if (bestPassingCodesAndGrades.get(tempCourse).charAt(0) > tempGrade.charAt(0)) {
 				bestPassingCodesAndGrades.put(tempCourse, tempGrade);
 				//ResultSet rst = stmt.executeQuery("SELECT COUNT(CRN) FROM studentCoursesTaken WHERE banner = '" + banner + "' AND code = '" + tempCode + "'AND grade < '" + tempGrade + "';");
@@ -274,7 +277,9 @@ public class StudentCourseManager {
 	
 	public double getGPAOfStudent(String banner) throws SQLException {
 		double val = earnedGradePointsOfStudent(banner) / earnedHoursOfStudent(banner);
-		return Double.parseDouble(Double.toString(val).substring(0, 4));
+		if (Double.toString(val).length() > 4)
+			return Double.parseDouble(Double.toString(val).substring(0, 4));
+		return val;
 	}
 
 	private static void insertPrereqCourses(String[] stuff) throws SQLException {
@@ -347,7 +352,8 @@ public class StudentCourseManager {
 			meetsAllCourseAndGradePrereqs = meetsAllCourseAndGradePrereqs && studentMeetsCourseAndGradePrereq(banner, rs.getString("codePre"), rs.getString("grade"));
 			//System.out.println("for " + rs.getString("codePre") + ": " + studentMeetsCourseAndGradePrereq(banner, rs.getString("codePre"), rs.getString("grade")));
 		}
-		return earnedGradePointsOfStudent(banner) >= getCRNEarnedHoursPrereq(crn)
+		
+		return earnedHoursOfStudent(banner) >= getCRNEarnedHoursPrereq(crn)
 				&& getGPAOfStudent(banner) >= getCRNGPAPrereq(crn)
 				&& convertClassification(studentClass(banner)) >= convertClassification(getCRNPrereqClass(crn))
 				&& meetsAllCourseAndGradePrereqs;
