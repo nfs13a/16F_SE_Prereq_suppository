@@ -179,11 +179,12 @@ Feature: people take a class
 		Given CRN "testCSV1.csv"
 		Then student "000817979" exists is "true"
 		And student "000817979" is classification "SR"
-		And student "000817979" is taking CRN "14788" is "false"
+		And student "000361136" is taking CRN "14788" is "false"
+		And student "000817979" is taking CRN "14788" is "true"
 		And student "000817979" has name "Ms. Bernard Bonnie Duffy"
-		And student "000817979" has 27 earned hours
-		And student "000817979" has 99 grade points
-		And student "000817979" has GPA "3.66"
+		And student "000817979" has 24 earned hours
+		And student "000817979" has 87 grade points
+		And student "000817979" has GPA "3.62"
 		And student "000817979" can meet requirement of course "ACCT211" with grade of "C"
 		And instructor "Clements, Curtis" teaches CRN "14788"
 		And CRN "14788" is a course of code "ACCT324"
@@ -201,6 +202,7 @@ Feature: people take a class
 		And student "000750483" meets the prereqs for CRN "14788" is "false"
 		And student "000860200" meets the prereqs for CRN "14691" is "false"
 		And student "000896976" meets the prereqs for CRN "14692" is "false"
+		And students "000000001," should be removed from CRN "14788"
 
 	#Scenario:
 		#Given database "studentTestData1.sql"

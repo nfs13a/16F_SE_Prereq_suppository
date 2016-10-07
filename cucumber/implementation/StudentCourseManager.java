@@ -1,5 +1,9 @@
 package implementation;
 
+/**
+ * Lukkedoerendunandurraskewdylooshoofermoyportertooryzooysphalnabortansporthaokansakroidverjkapakkapuk
+ */
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -16,19 +20,20 @@ public class StudentCourseManager {
 	private static Connection conn = null;
 	private static Statement stmt = null;
 	String lol = new File("").getAbsolutePath();
-	
+
 	public StudentCourseManager(String CSV) {
 		csvPath = lol + "/tests/" + CSV;
 	}
 
 	public void parseCRN() {
 		try {
-			//default is: String csvFile = "C:/Users/CPU8/Google Drive/Software Engineering/workspace/Beginnings/src/CSVParsing/cs374_anon.csv";
+			// default is: String csvFile = "C:/Users/CPU8/Google Drive/Software
+			// Engineering/workspace/Beginnings/src/CSVParsing/cs374_anon.csv";
 			BufferedReader br = null;
 			String line = "";
 			String cvsSplitBy = ",";
-			
-			//for the csv
+
+			// for the csv
 			try {
 				br = new BufferedReader(new FileReader(csvPath));
 				int i = 1;
@@ -36,16 +41,17 @@ public class StudentCourseManager {
 					String[] stuff = StudentCourseManager.newSplit(line);
 					if (i == 1) {
 						System.out.println("Creating database...");
-						createDatabases("/home/ubuntu/workspace/SEproject/implementation/StudentsSetup.sql");
+						createDatabases(lol + "/tests/StudentsSetup.sql");
 					} else {
 						stmt = conn.createStatement();
-						if (!(stuff[40].isEmpty() || stuff[42].isEmpty() || stuff[35].isEmpty() || stuff[56].isEmpty())) {
+						if (!(stuff[40].isEmpty() || stuff[42].isEmpty() || stuff[35].isEmpty()
+								|| stuff[56].isEmpty())) {
 							stuff[50] = stuff[50].substring(1, stuff[50].length() - 1);
 							insertStudent(stuff);
 							insertCourse(stuff);
 							insertCourseInstance(stuff);
 							insertStudentCourseTaken(stuff);
-							
+
 						}
 					}
 					i++;
@@ -56,11 +62,11 @@ public class StudentCourseManager {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}catch(SQLException se){
-			//Handle errors for JDBC
+		} catch (SQLException se) {
+			// Handle errors for JDBC
 			se.printStackTrace();
-		}catch(Exception e){
-			//Handle errors for Class.forName
+		} catch (Exception e) {
+			// Handle errors for Class.forName
 			e.printStackTrace();
 		}
 	}
@@ -69,17 +75,15 @@ public class StudentCourseManager {
 		BufferedReader br = null;
 		String line = "";
 		String cvsSplitBy = ",";
-		
+
 		// for the prereqs
 		try {
-			br = new BufferedReader(
-					new FileReader(lol + "/tests/PrereqCourses1.csv"));
+			br = new BufferedReader(new FileReader(lol + "/tests/PrereqCourses1.csv"));
 			while ((line = br.readLine()) != null) {
 				String[] stuff = StudentCourseManager.newSplit(line);
 				insertPrereqCourses(stuff);
 			}
-			br = new BufferedReader(
-					new FileReader(lol + "/tests/CourseTablePrereqs1.csv"));
+			br = new BufferedReader(new FileReader(lol + "/tests/CourseTablePrereqs1.csv"));
 			while ((line = br.readLine()) != null) {
 				String[] stuff = StudentCourseManager.newSplit(line);
 				insertPrereqOtherInfo(stuff);
@@ -90,14 +94,14 @@ public class StudentCourseManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private static void createDatabases(String file) throws FileNotFoundException, IOException, SQLException {
 
 		final String DB_URL = "jdbc:mysql://localhost/";
 
 		// Database credentials
 		final String USER = "root";
-		final String PASS = "";	//insert your password here
+		final String PASS = "insert here"; // insert your password here
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -110,7 +114,7 @@ public class StudentCourseManager {
 		ScriptRunner runner = new ScriptRunner(conn, false, false);
 		runner.runScript(new BufferedReader(new FileReader(file)));
 	}
-	
+
 	private static void insertStudent(String[] stuff) throws SQLException {
 		ResultSet rs = stmt.executeQuery("SELECT COUNT(*) AS total FROM student WHERE banner = " + stuff[56] + ";");
 		if (rs.next()) {
@@ -122,31 +126,29 @@ public class StudentCourseManager {
 				}
 				sqlStudent += stuff[33] + "')";
 
-				//System.out.println(sqlStudent);
+				// System.out.println(sqlStudent);
 
 				stmt.executeUpdate(sqlStudent);
 			}
 		}
 	}
-	
+
 	public boolean studentExists(String banner) throws SQLException {
-		ResultSet rs = stmt.executeQuery(
-				"SELECT COUNT(*) AS total FROM student WHERE banner = '" + banner + "';");
+		ResultSet rs = stmt.executeQuery("SELECT COUNT(*) AS total FROM student WHERE banner = '" + banner + "';");
 		rs.next();
-		//System.out.println("num: " + rs.getInt("total"));
+		// System.out.println("num: " + rs.getInt("total"));
 		return rs.getInt("total") == 1;
 	}
-	
+
 	public String studentClass(String banner) throws SQLException {
-		ResultSet rs = stmt.executeQuery(
-				"SELECT classification FROM student WHERE banner = '" + banner + "';");
+		ResultSet rs = stmt.executeQuery("SELECT classification FROM student WHERE banner = '" + banner + "';");
 		rs.next();
 		return rs.getString("classification");
 	}
-	
+
 	public String getFullStudentName(String banner) throws SQLException {
-		ResultSet rs = stmt.executeQuery(
-				"SELECT fn, ln, mn, pre FROM student WHERE banner = '" + banner + "' LIMIT 1;");
+		ResultSet rs = stmt
+				.executeQuery("SELECT fn, ln, mn, pre FROM student WHERE banner = '" + banner + "' LIMIT 1;");
 		rs.next();
 		return rs.getString("pre") + " " + rs.getString("fn") + " " + rs.getString("mn") + " " + rs.getString("ln");
 	}
@@ -159,9 +161,10 @@ public class StudentCourseManager {
 				String sqlCourse = "INSERT INTO course VALUES('" + stuff[40] + stuff[42] + "', '" + stuff[47] + "', "
 						+ 0.0 + ", 'FR', " + 0 + ")";
 
-				//System.out.println(sqlCourse);
+				// System.out.println(sqlCourse);
 
-				//System.out.println("SELECT COUNT(*) AS total FROM course WHERE code = " + stuff[40] + stuff[42]);
+				// System.out.println("SELECT COUNT(*) AS total FROM course
+				// WHERE code = " + stuff[40] + stuff[42]);
 
 				stmt.executeUpdate(sqlCourse);
 			}
@@ -176,20 +179,21 @@ public class StudentCourseManager {
 				String sqlCourseInstance = "INSERT INTO courseInstances VALUES('" + stuff[35] + "', '" + stuff[40]
 						+ stuff[42] + "', '" + stuff[50] + "')";
 
-				//System.out.println(sqlCourseInstance);
+				// System.out.println(sqlCourseInstance);
 
 				stmt.executeUpdate(sqlCourseInstance);
 			}
 		}
 	}
-	
+
 	public String getInstructor(String crn) throws SQLException {
 		ResultSet rs = stmt.executeQuery("SELECT instructor FROM courseInstances WHERE CRN = '" + crn + "';");
 		rs.next();
-		//return rs.getString("instructor").substring(1, rs.getString("instructor").length() - 1);
+		// return rs.getString("instructor").substring(1,
+		// rs.getString("instructor").length() - 1);
 		return rs.getString("instructor");
 	}
-	
+
 	public String getCodeFromCRN(String crn) throws SQLException {
 		ResultSet rs = stmt.executeQuery("SELECT code FROM courseInstances WHERE CRN = '" + crn + "';");
 		rs.next();
@@ -205,15 +209,16 @@ public class StudentCourseManager {
 				String sqlSCT = "INSERT INTO studentCoursesTaken VALUES('" + stuff[56] + "', '" + stuff[35] + "', '"
 						+ stuff[40] + stuff[42] + "', '" + stuff[48] + "', '" + stuff[55] + "')";
 
-				//System.out.println(sqlSCT);
+				// System.out.println(sqlSCT);
 
 				stmt.executeUpdate(sqlSCT);
 			}
 		}
 	}
-	
+
 	public boolean studentTakingCourse(String banner, String crn) throws SQLException {
-		ResultSet rs = stmt.executeQuery("SELECT grade FROM studentCoursesTaken WHERE CRN = '" + crn + "' and banner = '" + banner + "';");
+		ResultSet rs = stmt.executeQuery(
+				"SELECT grade FROM studentCoursesTaken WHERE CRN = '" + crn + "' and banner = '" + banner + "';");
 		boolean taking = false;
 		while (rs.next()) {
 			if (rs.getString("grade").equals(""))
@@ -221,18 +226,19 @@ public class StudentCourseManager {
 		}
 		return taking;
 	}
-	
+
 	public int earnedHoursOfStudent(String banner) throws SQLException {
 		int totalHours = 0;
 		Map<String, String> bestPassingCodesAndGrades = new HashMap<String, String>();
 		ResultSet rs = stmt.executeQuery("SELECT * FROM studentCoursesTaken WHERE banner = '" + banner + "';");
 		Statement lnestmt = conn.createStatement();
 		ResultSet lne = null;
+		System.out.println("student: " + banner);
 		while (rs.next()) {
 			String tempGrade = rs.getString("grade");
 			String tempCourse = rs.getString("code");
 			if (!bestPassingCodesAndGrades.containsKey(tempCourse)) {
-				if (tempGrade.charAt(0) < 'F') {
+				if (!tempGrade.equals("") && tempGrade.charAt(0) < 'F') {
 					bestPassingCodesAndGrades.put(tempCourse, tempGrade);
 
 					lne = lnestmt.executeQuery("SELECT hours FROM course WHERE code = '" + tempCourse + "';");
@@ -242,12 +248,14 @@ public class StudentCourseManager {
 				}
 			} else if (bestPassingCodesAndGrades.get(tempCourse).charAt(0) > tempGrade.charAt(0)) {
 				bestPassingCodesAndGrades.put(tempCourse, tempGrade);
-				//ResultSet rst = stmt.executeQuery("SELECT COUNT(CRN) FROM studentCoursesTaken WHERE banner = '" + banner + "' AND code = '" + tempCode + "'AND grade < '" + tempGrade + "';");
+				// ResultSet rst = stmt.executeQuery("SELECT COUNT(CRN) FROM
+				// studentCoursesTaken WHERE banner = '" + banner + "' AND code
+				// = '" + tempCode + "'AND grade < '" + tempGrade + "';");
 			}
 		}
 		return totalHours;
 	}
-	
+
 	public double earnedGradePointsOfStudent(String banner) throws SQLException {
 		double totalPoints = 0;
 		Map<String, String> bestPassingCodesAndGrades = new HashMap<String, String>();
@@ -257,24 +265,27 @@ public class StudentCourseManager {
 		while (rs.next()) {
 			String tempGrade = rs.getString("grade");
 			String tempCourse = rs.getString("code");
-			
+
 			lne = lnestmt.executeQuery("SELECT hours FROM course WHERE code = '" + tempCourse + "';");
 			lne.next();
-			
+
 			int tempHours = lne.getInt("hours");
-			
-			if (bestPassingCodesAndGrades.containsKey(tempCourse) && bestPassingCodesAndGrades.get(tempCourse).charAt(0) < tempGrade.charAt(0) && tempGrade.charAt(0) < 'F' && tempGrade.charAt(0) >= 'A') {
-				totalPoints -= convertGrade(bestPassingCodesAndGrades.get(tempCourse)) * tempHours;
-				bestPassingCodesAndGrades.put(tempCourse, tempGrade);
-				totalPoints += tempHours * convertGrade(tempGrade);
-			} else {
-				bestPassingCodesAndGrades.put(tempCourse, tempGrade);
-				totalPoints += tempHours * convertGrade(tempGrade);
+			if (!tempCourse.equals("")) {
+				if (bestPassingCodesAndGrades.containsKey(tempCourse)
+						&& bestPassingCodesAndGrades.get(tempCourse).charAt(0) < tempGrade.charAt(0)
+						&& tempGrade.charAt(0) < 'F' && tempGrade.charAt(0) >= 'A') {
+					totalPoints -= convertGrade(bestPassingCodesAndGrades.get(tempCourse)) * tempHours;
+					bestPassingCodesAndGrades.put(tempCourse, tempGrade);
+					totalPoints += tempHours * convertGrade(tempGrade);
+				} else {
+					bestPassingCodesAndGrades.put(tempCourse, tempGrade);
+					totalPoints += tempHours * convertGrade(tempGrade);
+				}
 			}
 		}
 		return totalPoints;
 	}
-	
+
 	public double getGPAOfStudent(String banner) throws SQLException {
 		double val = earnedGradePointsOfStudent(banner) / earnedHoursOfStudent(banner);
 		if (Double.toString(val).length() > 4)
@@ -286,19 +297,21 @@ public class StudentCourseManager {
 		ResultSet rs = stmt.executeQuery("SELECT COUNT(*) AS total FROM course WHERE code = " + "'" + stuff[0] + "';");
 		if (rs.next()) {
 			if (rs.getInt("total") == 1) {
-				String sqlPre = "INSERT INTO prereqCourse VALUES('" + stuff[1] + "', '" + stuff[0] + "', '"
-						+ stuff[2] + "')";
+				String sqlPre = "INSERT INTO prereqCourse VALUES('" + stuff[1] + "', '" + stuff[0] + "', '" + stuff[2]
+						+ "')";
 
-				//System.out.println(sqlPre);
+				// System.out.println(sqlPre);
 
 				stmt.executeUpdate(sqlPre);
 			}
 		}
 	}
-	
+
 	public String getPrereqsOfCRN(String crn) throws SQLException {
 		String allPrereqs = "";
-		ResultSet rs = stmt.executeQuery("SELECT codePre, grade FROM prereqCourse WHERE codePost = (SELECT code FROM courseInstances WHERE CRN = '" + crn + "');");
+		ResultSet rs = stmt.executeQuery(
+				"SELECT codePre, grade FROM prereqCourse WHERE codePost = (SELECT code FROM courseInstances WHERE CRN = '"
+						+ crn + "');");
 		while (rs.next()) {
 			allPrereqs += rs.getString("codePre") + "," + rs.getString("grade") + ",";
 		}
@@ -312,53 +325,84 @@ public class StudentCourseManager {
 				String sqlPre = "UPDATE course SET prereqGPA = '" + stuff[2] + "', prereqClass = '" + stuff[3]
 						+ "', prereqEarnedHours = '" + stuff[1] + "' WHERE code = '" + stuff[0] + "';";
 
-				//System.out.println(sqlPre);
+				// System.out.println(sqlPre);
 
 				stmt.executeUpdate(sqlPre);
 			}
 		}
 	}
-	
+
 	public int getCRNEarnedHoursPrereq(String crn) throws SQLException {
-		//System.out.println("SELECT prereqEarnedHours FROM course WHERE code = '(SELECT code FROM courseInstances WHERE CRN = '" + crn + "');)");
-		ResultSet rs = stmt.executeQuery("SELECT prereqEarnedHours FROM course WHERE code = (SELECT code FROM courseInstances WHERE CRN = '" + crn + "');");
+		// System.out.println("SELECT prereqEarnedHours FROM course WHERE code =
+		// '(SELECT code FROM courseInstances WHERE CRN = '" + crn + "');)");
+		ResultSet rs = stmt.executeQuery(
+				"SELECT prereqEarnedHours FROM course WHERE code = (SELECT code FROM courseInstances WHERE CRN = '"
+						+ crn + "');");
 		rs.next();
 		return rs.getInt("prereqEarnedHours");
 	}
-	
+
 	public double getCRNGPAPrereq(String crn) throws SQLException {
-		ResultSet rs = stmt.executeQuery("SELECT prereqGPA FROM course WHERE code = (SELECT code FROM courseInstances WHERE CRN = '" + crn + "');");
+		ResultSet rs = stmt.executeQuery(
+				"SELECT prereqGPA FROM course WHERE code = (SELECT code FROM courseInstances WHERE CRN = '" + crn
+						+ "');");
 		rs.next();
 		return rs.getFloat("prereqGPA");
 	}
-	
+
 	public String getCRNPrereqClass(String crn) throws SQLException {
-		ResultSet rs = stmt.executeQuery("SELECT prereqClass FROM course WHERE code = (SELECT code FROM courseInstances WHERE CRN = '" + crn + "');");
+		ResultSet rs = stmt.executeQuery(
+				"SELECT prereqClass FROM course WHERE code = (SELECT code FROM courseInstances WHERE CRN = '" + crn
+						+ "');");
 		rs.next();
 		return rs.getString("prereqClass");
 	}
-	
+
 	public boolean studentMeetsCourseAndGradePrereq(String banner, String code, String grade) throws SQLException {
-		ResultSet rs = stmt.executeQuery("SELECT COUNT(*) AS total FROM studentCoursesTaken WHERE banner = '" + banner + "' AND code = '" + code + "' AND grade <= '" + grade + "';");
+		ResultSet rs = stmt.executeQuery("SELECT COUNT(*) AS total FROM studentCoursesTaken WHERE banner = '" + banner
+				+ "' AND code = '" + code + "' AND grade <= '" + grade + "';");
 		rs.next();
 		return rs.getInt("total") >= 1;
 	}
-	
+
 	public boolean studentMeetsPrereqs(String banner, String crn) throws SQLException {
 		boolean meetsAllCourseAndGradePrereqs = true;
 		Statement thingstmt = conn.createStatement();
-		ResultSet rs = thingstmt.executeQuery("SELECT * FROM prereqCourse WHERE codePost = (SELECT code FROM courseInstances WHERE CRN = '" + crn + "');");
-		while(rs.next()) {
-			meetsAllCourseAndGradePrereqs = meetsAllCourseAndGradePrereqs && studentMeetsCourseAndGradePrereq(banner, rs.getString("codePre"), rs.getString("grade"));
-			//System.out.println("for " + rs.getString("codePre") + ": " + studentMeetsCourseAndGradePrereq(banner, rs.getString("codePre"), rs.getString("grade")));
+		ResultSet rs = thingstmt.executeQuery(
+				"SELECT * FROM prereqCourse WHERE codePost = (SELECT code FROM courseInstances WHERE CRN = '" + crn
+						+ "');");
+		while (rs.next()) {
+			meetsAllCourseAndGradePrereqs = meetsAllCourseAndGradePrereqs
+					&& studentMeetsCourseAndGradePrereq(banner, rs.getString("codePre"), rs.getString("grade"));
+			// System.out.println("for " + rs.getString("codePre") + ": " +
+			// studentMeetsCourseAndGradePrereq(banner, rs.getString("codePre"),
+			// rs.getString("grade")));
 		}
-		
+
 		return earnedHoursOfStudent(banner) >= getCRNEarnedHoursPrereq(crn)
 				&& getGPAOfStudent(banner) >= getCRNGPAPrereq(crn)
 				&& convertClassification(studentClass(banner)) >= convertClassification(getCRNPrereqClass(crn))
 				&& meetsAllCourseAndGradePrereqs;
 	}
-	
+
+	public String getAllStudentsThatDoNotMeetPrereqs(String crn) throws SQLException {
+		String all = "";
+		// ResultSet rs = stmt.executeQuery("SELECT * as total FROM
+		// studentCoursesTaken WHERE CRN = '" + crn + "';");
+		// System.out.println("###########################################################################################"
+		// + rs.getInt("total"));
+		Statement thingstmt = conn.createStatement();
+		ResultSet rs = thingstmt
+				.executeQuery("SELECT banner FROM studentCoursesTaken WHERE grade = '' AND CRN = '" + crn + "';");
+		while (rs.next()) {
+			// System.out.println(rs.getString("banner"));
+			if (!studentMeetsPrereqs(rs.getString("banner"), crn))
+				all += rs.getString("banner") + ",";
+			// System.out.println("all: " + all);
+		}
+		return all;
+	}
+
 	private static String[] newSplit(String str) {
 		// guaranteed to have 147 columns; any more are a mistake and/or not
 		// meaningful
@@ -420,14 +464,17 @@ public class StudentCourseManager {
 				str = str.substring(temp.length() + 1, str.length());
 
 			// adds temp into newStrings and increments i
-			/*System.out.println("old temp: " + temp);
-			if (temp.charAt(0) == '\"' && temp.charAt(temp.length() - 1) == '\"' && temp.contains(",")) temp = temp.replaceAll("\"", "");
-			System.out.println("new temp: " + temp);*/
+			/*
+			 * System.out.println("old temp: " + temp); if (temp.charAt(0) ==
+			 * '\"' && temp.charAt(temp.length() - 1) == '\"' && temp.contains("
+			 * ,")) temp = temp.replaceAll("\"", "");
+			 * System.out.println("new temp: " + temp);
+			 */
 			newStrings[i++] = temp;
 		}
 		return newStrings;
 	}
-	
+
 	private double convertGrade(String letter) {
 		if (letter.equals("A"))
 			return 4.0;
@@ -437,10 +484,10 @@ public class StudentCourseManager {
 			return 2.0;
 		else if (letter.equals("D"))
 			return 1.0;
-		//assuming that nothing other than A-D, F will be entered
+		// assuming that nothing other than A-D, F will be entered
 		return 0.0;
 	}
-	
+
 	private int convertClassification(String c) {
 		if (c.equals("FR"))
 			return 1;

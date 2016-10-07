@@ -9,7 +9,6 @@ package step_definitions;
 import cucumber.api.java.en.*;
 import cucumber.api.PendingException;
 import implementation.Registrar;
-import implementation.JDBCExample;
 import implementation.StudentCourseManager;
 import java.util.Map;
 import java.util.HashMap;
@@ -17,7 +16,6 @@ import static org.junit.Assert.*;
 
 public class EjectionTest {
 	private Registrar rg = new Registrar();
-	//private JDBCExample je;
 	private StudentCourseManager scm;
 	
 	@Given("^course \"([^\"]*)\" has prerequisites \"([^\"]*)\"$")
@@ -154,6 +152,11 @@ public class EjectionTest {
 	
 	@Then("^student \"([^\"]*)\" meets the prereqs for CRN \"([^\"]*)\" is \"([^\"]*)\"$")
 	public void studentMeetsThePrereqsForCRNIs(String banner, String crn, String bool) throws Throwable {
-	    assertEquals(scm.studentMeetsPrereqs(banner, crn), Boolean.parseBoolean(bool));
+	    assert(Boolean.parseBoolean(bool) == scm.getAllStudentsThatDoNotMeetPrereqs(crn).contains(banner));
+	}
+	
+	@Then("^students \"([^\"]*)\" should be removed from CRN \"([^\"]*)\"$")
+	public void studentsShouldBeRemovedFromCRN(String bannerList, String crn) throws Throwable {
+	    assertEquals(bannerList, scm.getAllStudentsThatDoNotMeetPrereqs(crn));
 	}
 }
