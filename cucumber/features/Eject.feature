@@ -186,7 +186,7 @@ Feature: people take a class
 		And student "000817979" has 87 grade points
 		And student "000817979" has GPA "3.62"
 		And student "000817979" can meet requirement of course "ACCT211" with grade of "C"
-		And instructor "Clements, Curtis" teaches CRN "14788"
+		And instructor "Curtis Clements" teaches CRN "14788"
 		And CRN "14788" is a course of code "ACCT324"
 		And CRN "14788" has prereq of minimum earned hours 0
 		And CRN "14788" has prereq of GPA "0.0"

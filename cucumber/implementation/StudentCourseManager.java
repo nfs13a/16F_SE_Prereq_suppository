@@ -26,8 +26,9 @@ public class StudentCourseManager {
 	private static Vector<String> allSCTs;
 
 	public StudentCourseManager(String CSV) {
-		// csvPath = lol + "/tests/" + CSV;
-		csvPath = "C:/Users/CPU8/Google Drive/Software Engineering/Project 1 Local backups/cs374_anon.csv";
+		if (CSV.equals("big")) csvPath = "C:/Users/CPU8/Google Drive/Software Engineering/Project 1 Local backups/cs374_anon.csv";
+		else csvPath = lol + "/tests/" + CSV;
+		
 		allBanners = new Vector<String>();
 		allCodes = new Vector<String>();
 		allCIs = new Vector<String>();
