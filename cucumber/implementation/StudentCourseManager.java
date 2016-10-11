@@ -12,17 +12,30 @@ import java.sql.*;
 import java.util.Vector;
 import java.util.Map;
 import java.util.HashMap;
-import java.io.File;
+import java.io.*;
 
 public class StudentCourseManager {
 
 	private String csvPath;
 	private static Connection conn = null;
 	private static Statement stmt = null;
-	String lol = new File("").getAbsolutePath();
+	private String lol = new File("").getAbsolutePath();
+	private static Vector<String> allBanners;
+	private static Vector<String> allCodes;
+	private static Vector<String> allCIs;
+	private static Vector<String> allSCTs;
 
 	public StudentCourseManager(String CSV) {
-		csvPath = lol + "/tests/" + CSV;
+		// csvPath = lol + "/tests/" + CSV;
+		csvPath = "C:/Users/CPU8/Google Drive/Software Engineering/Project 1 Local backups/cs374_anon.csv";
+		allBanners = new Vector<String>();
+		allCodes = new Vector<String>();
+		allCIs = new Vector<String>();
+		allSCTs = new Vector<String>();
+	}
+
+	public StudentCourseManager() {
+		csvPath = lol + "/tests/testCSV1.csv";
 	}
 
 	public void parseCRN() {
@@ -37,25 +50,81 @@ public class StudentCourseManager {
 			try {
 				br = new BufferedReader(new FileReader(csvPath));
 				int i = 1;
+				FileWriter studentCSV = new FileWriter(
+						"C:/ProgramData/MySQL/MySQL Server 5.6/Data/students/studentTable.csv");
+				FileWriter codeCSV = new FileWriter(
+						"C:/ProgramData/MySQL/MySQL Server 5.6/Data/students/codeTable.csv");
+				FileWriter ciCSV = new FileWriter("C:/ProgramData/MySQL/MySQL Server 5.6/Data/students/ciTable.csv");
+				FileWriter sctCSV = new FileWriter("C:/ProgramData/MySQL/MySQL Server 5.6/Data/students/sctTable.csv");
+
 				while ((line = br.readLine()) != null) {
 					String[] stuff = StudentCourseManager.newSplit(line);
 					if (i == 1) {
-						//System.out.println("Creating database...");
+						// System.out.println("Creating database...");
 						createDatabases(lol + "/tests/StudentsSetup.sql");
 					} else {
 						stmt = conn.createStatement();
 						if (!(stuff[40].isEmpty() || stuff[42].isEmpty() || stuff[35].isEmpty()
 								|| stuff[56].isEmpty())) {
 							stuff[50] = stuff[50].substring(1, stuff[50].length() - 1);
-							insertStudent(stuff);
-							insertCourse(stuff);
-							insertCourseInstance(stuff);
-							insertStudentCourseTaken(stuff);
+
+							if (!allBanners.contains(stuff[56])) {
+								String writeStudent = "";
+
+								for (int l = 56; l < 61; l++) {
+									writeStudent += stuff[l] + ",";
+								}
+
+								writeStudent += stuff[33] + "\n";
+
+								allBanners.add(stuff[56]);
+								studentCSV.append(writeStudent);
+							}
+							if (!allCodes.contains(stuff[40] + stuff[42])) {
+								String writeCode = "";
+								writeCode += stuff[40] + stuff[42] + "," + stuff[47] + "," + 0.0 + ",FR," + 0 + "\n";
+								allCodes.add(stuff[40] + stuff[42]);
+								codeCSV.append(writeCode);
+							}
+							if (!allCIs.contains(stuff[35] + stuff[40] + stuff[42])) {
+								String writeCI = "";
+								//System.out.println(stuff[50].substring(0, stuff[50].indexOf(",")));
+								if (stuff[50].contains(",")) {
+									writeCI += stuff[35] + "," + stuff[40] + stuff[42] + ","
+											+ stuff[50].substring(stuff[50].indexOf(",") + 2) + " "
+											+ stuff[50].substring(0, stuff[50].indexOf(",")) + "\n";
+								} else {
+									writeCI += stuff[35] + "," + stuff[40] + stuff[42] + "," + stuff[50] + "\n";
+								}
+								allCIs.add(stuff[35] + stuff[40] + stuff[42]); // CRN
+																				// +
+																				// code
+								ciCSV.append(writeCI);
+							}
+							if (!allSCTs.contains(stuff[35] + stuff[40] + stuff[42] + stuff[56])) {
+								String writeSCT = "";
+								writeSCT += stuff[56] + "," + stuff[35] + "," + stuff[40] + stuff[42] + "," + stuff[48]
+										+ "," + stuff[55] + "\n";
+
+								allSCTs.add(stuff[35] + stuff[40] + stuff[42] + stuff[56]);
+								sctCSV.append(writeSCT);
+							}
 
 						}
 					}
+					System.out.println(i);
 					i++;
 				}
+				studentCSV.close();
+				codeCSV.close();
+				ciCSV.close();
+				sctCSV.close();
+
+				insertStudent("studentTable.csv");
+				insertCourse("codeTable.csv");
+				insertCourseInstance("ciTable.csv");
+				insertStudentCourseTaken("sctTable.csv");
+
 				setPrereqs();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -115,22 +184,51 @@ public class StudentCourseManager {
 		runner.runScript(new BufferedReader(new FileReader(file)));
 	}
 
-	private static void insertStudent(String[] stuff) throws SQLException {
-		ResultSet rs = stmt.executeQuery("SELECT COUNT(*) AS total FROM student WHERE banner = " + stuff[56] + ";");
-		if (rs.next()) {
-			if (rs.getInt("total") == 0) {
+	/*
+	 * private static void insertAll(String[] stuff) throws SQLException {
+	 * //String sqlTransaction = "BEGIN TRANSACTION";
+	 * 
+	 * if (!allBanners.contains(stuff[56])) { String writeStudent += "";
+	 * 
+	 * for (int l = 56; l < 61; l++) { writeStudent += stuff[l] + ","; }
+	 * 
+	 * writeStudent += stuff[33];
+	 * 
+	 * allBanners.add(stuff[56]);
+	 * 
+	 * //insertStudent(stuff); } if (!allCodes.contains(stuff[40] + stuff[42]))
+	 * { sqlTransaction += "INSERT INTO course VALUES('" + stuff[40] + stuff[42]
+	 * + "', '" + stuff[47] + "', " + 0.0 + ", 'FR', " + 0 + "); ";
+	 * 
+	 * allCodes.add(stuff[40] + stuff[42]); //insertCourse(stuff); } if
+	 * (!allCIs.contains(stuff[35] + stuff[40] + stuff[42])) { sqlTransaction +=
+	 * "INSERT INTO courseInstances VALUES('" + stuff[35] + "', '" + stuff[40] +
+	 * stuff[42] + "', '" + stuff[50] + "'); ";
+	 * 
+	 * allCIs.add(stuff[35] + stuff[40] + stuff[42]); // CRN + code
+	 * 
+	 * //insertCourseInstance(stuff); } if (!allSCTs.contains(stuff[35] +
+	 * stuff[40] + stuff[42] + stuff[56])) { sqlTransaction +=
+	 * "INSERT INTO studentCoursesTaken VALUES('" + stuff[56] + "', '" +
+	 * stuff[35] + "', '" + stuff[40] + stuff[42] + "', '" + stuff[48] + "', '"
+	 * + stuff[55] + "'); ";
+	 * 
+	 * allSCTs.add(stuff[35] + stuff[40] + stuff[42] + stuff[56]);
+	 * 
+	 * //insertStudentCourseTaken(stuff); }
+	 * 
+	 * sqlTransaction += "COMMIT";
+	 * 
+	 * stmt.executeUpdate(sqlTransaction); }
+	 */
 
-				String sqlStudent = "INSERT INTO student VALUES('";
-				for (int l = 56; l < 61; l++) {
-					sqlStudent += stuff[l] + "', '";
-				}
-				sqlStudent += stuff[33] + "')";
+	private static void insertStudent(String csvIn) throws SQLException {
+		String sqlStudent = "LOAD DATA INFILE '" + csvIn + "' INTO TABLE student " + "FIELDS TERMINATED BY ','"
+				+ "LINES TERMINATED BY '\n';";
 
-				// System.out.println(sqlStudent);
+		// System.out.println(sqlStudent);
 
-				stmt.executeUpdate(sqlStudent);
-			}
-		}
+		stmt.executeUpdate(sqlStudent);
 	}
 
 	public boolean studentExists(String banner) throws SQLException {
@@ -153,37 +251,25 @@ public class StudentCourseManager {
 		return rs.getString("pre") + " " + rs.getString("fn") + " " + rs.getString("mn") + " " + rs.getString("ln");
 	}
 
-	private static void insertCourse(String[] stuff) throws SQLException {
-		ResultSet rs = stmt.executeQuery(
-				"SELECT COUNT(*) AS total FROM course WHERE code = " + "'" + stuff[40] + stuff[42] + "';");
-		if (rs.next()) {
-			if (rs.getInt("total") == 0) {
-				String sqlCourse = "INSERT INTO course VALUES('" + stuff[40] + stuff[42] + "', '" + stuff[47] + "', "
-						+ 0.0 + ", 'FR', " + 0 + ")";
+	private static void insertCourse(String csvIn) throws SQLException {
+		String sqlCourse = "LOAD DATA INFILE '" + csvIn + "' INTO TABLE course " + "FIELDS TERMINATED BY ','"
+				+ "LINES TERMINATED BY '\n';";
 
-				// System.out.println(sqlCourse);
+		// System.out.println(sqlCourse);
 
-				// System.out.println("SELECT COUNT(*) AS total FROM course
-				// WHERE code = " + stuff[40] + stuff[42]);
+		// System.out.println("SELECT COUNT(*) AS total FROM course
+		// WHERE code = " + stuff[40] + stuff[42]);
 
-				stmt.executeUpdate(sqlCourse);
-			}
-		}
+		stmt.executeUpdate(sqlCourse);
 	}
 
-	private static void insertCourseInstance(String[] stuff) throws SQLException {
-		ResultSet rs = stmt.executeQuery("SELECT COUNT(*) AS total FROM courseInstances WHERE CRN = " + "'" + stuff[35]
-				+ "'" + " and code = " + "'" + stuff[40] + stuff[42] + "';");
-		if (rs.next()) {
-			if (rs.getInt("total") == 0) {
-				String sqlCourseInstance = "INSERT INTO courseInstances VALUES('" + stuff[35] + "', '" + stuff[40]
-						+ stuff[42] + "', '" + stuff[50] + "')";
+	private static void insertCourseInstance(String csvIn) throws SQLException {
+		String sqlCourseInstance = "LOAD DATA INFILE '" + csvIn + "' INTO TABLE courseInstances "
+				+ "FIELDS TERMINATED BY ','" + "LINES TERMINATED BY '\n';";
 
-				// System.out.println(sqlCourseInstance);
+		// System.out.println(sqlCourseInstance);
 
-				stmt.executeUpdate(sqlCourseInstance);
-			}
-		}
+		stmt.executeUpdate(sqlCourseInstance);
 	}
 
 	public String getInstructor(String crn) throws SQLException {
@@ -200,20 +286,13 @@ public class StudentCourseManager {
 		return rs.getString("code");
 	}
 
-	private static void insertStudentCourseTaken(String[] stuff) throws SQLException {
-		ResultSet rs = stmt
-				.executeQuery("SELECT COUNT(*) AS total FROM studentCoursesTaken WHERE CRN = " + "'" + stuff[35] + "'"
-						+ " and code = " + "'" + stuff[40] + stuff[42] + "' and banner = '" + stuff[56] + "';");
-		if (rs.next()) {
-			if (rs.getInt("total") == 0) {
-				String sqlSCT = "INSERT INTO studentCoursesTaken VALUES('" + stuff[56] + "', '" + stuff[35] + "', '"
-						+ stuff[40] + stuff[42] + "', '" + stuff[48] + "', '" + stuff[55] + "')";
+	private static void insertStudentCourseTaken(String csvIn) throws SQLException {
+		String sqlSCT = "LOAD DATA INFILE '" + csvIn + "' INTO TABLE studentCoursesTaken " + "FIELDS TERMINATED BY ','"
+				+ "LINES TERMINATED BY '\n';";
 
-				// System.out.println(sqlSCT);
+		// System.out.println(sqlSCT);
 
-				stmt.executeUpdate(sqlSCT);
-			}
-		}
+		stmt.executeUpdate(sqlSCT);
 	}
 
 	public boolean studentTakingCourse(String banner, String crn) throws SQLException {
@@ -233,7 +312,7 @@ public class StudentCourseManager {
 		ResultSet rs = stmt.executeQuery("SELECT * FROM studentCoursesTaken WHERE banner = '" + banner + "';");
 		Statement lnestmt = conn.createStatement();
 		ResultSet lne = null;
-		//System.out.println("student: " + banner);
+		// System.out.println("student: " + banner);
 		while (rs.next()) {
 			String tempGrade = rs.getString("grade");
 			String tempCourse = rs.getString("code");
@@ -406,11 +485,11 @@ public class StudentCourseManager {
 	private static String[] newSplit(String str) {
 		// guaranteed to have 147 columns; any more are a mistake and/or not
 		// meaningful
-		String newStrings[] = new String[147]; // array of all fields to be
+		String newStrings[] = new String[65]; // array of all fields to be
 												// filled and returned
 		int i = 0; // counter for number of fields inserted into the array; used
 					// for counting and indexing into newStrings
-		while (i < 147) {
+		while (i < 65) {
 			String temp; // will be filled and inserted into the ith index of
 							// newStrings
 			/*

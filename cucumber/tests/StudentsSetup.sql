@@ -41,7 +41,7 @@ CREATE TABLE courseInstances
 ( CRN varchar(50) NOT NULL,
 code varchar(20) NOT NULL,
 instructor varchar(50) NOT NULL,
-PRIMARY KEY (CRN),
+PRIMARY KEY (CRN, code),
 FOREIGN KEY (code) references course(code)
 );
 
