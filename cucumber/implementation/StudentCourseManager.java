@@ -40,7 +40,6 @@ public class StudentCourseManager {
 			}*/
 			
 			csvPath = lol + "/implementation/cs374_anon.csv";
-			System.out.println("big");
 		}
 		else csvPath = lol + "/tests/" + CSV;
 		
@@ -146,7 +145,7 @@ public class StudentCourseManager {
 
 						}
 					}
-					if (i % 10000 == 0) System.out.println(i);
+					//if (i % 10000 == 0) System.out.println(i);
 					i++;
 				}
 				studentCSV.close();

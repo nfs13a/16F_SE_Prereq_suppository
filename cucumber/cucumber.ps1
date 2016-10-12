@@ -1,6 +1,9 @@
 ﻿$shell = new-object -com shell.application
-$zip = $shell.NameSpace(“C:\Users\CPU8\Documents\Github\suppository\cucumber\implementation\cs374_anon.zip”)
+
+$path = “\implementation\cs374_anon.zip”
+
+$zip = $shell.NameSpace(($PSScriptRoot + $path))
 foreach($item in $zip.items())
 {
-$shell.Namespace(“C:\Users\CPU8\Documents\Github\suppository\cucumber\implementation\”).copyhere($item)
+$shell.Namespace(($PSScriptRoot + "\implementation")).copyhere($item)
 }
