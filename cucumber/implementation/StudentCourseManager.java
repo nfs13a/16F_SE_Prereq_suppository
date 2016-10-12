@@ -26,17 +26,15 @@ public class StudentCourseManager {
 	private static Vector<String> allSCTs;
 
 	public StudentCourseManager(String CSV) {
-		if (CSV.equals("big")) csvPath = "C:/Users/CPU8/Google Drive/Software Engineering/Project 1 Local backups/cs374_anon.csv";
+		if (CSV.equals("big")) { csvPath = "C:/Users/CPU8/Google Drive/Software Engineering/Project 1 Local backups/cs374_anon.csv";
+			System.out.println("big");
+		}
 		else csvPath = lol + "/tests/" + CSV;
 		
 		allBanners = new Vector<String>();
 		allCodes = new Vector<String>();
 		allCIs = new Vector<String>();
 		allSCTs = new Vector<String>();
-	}
-
-	public StudentCourseManager() {
-		csvPath = lol + "/tests/testCSV1.csv";
 	}
 
 	public void parseCRN() {
@@ -113,7 +111,7 @@ public class StudentCourseManager {
 
 						}
 					}
-					System.out.println(i);
+					if (i % 10000 == 0) System.out.println(i);
 					i++;
 				}
 				studentCSV.close();

@@ -244,6 +244,8 @@ Feature: people take a class
 		Then course "14788" has a required classification of "FR"
 		Then course "14788" has prerequisite "ACCT210,C,BUSA120,C,"
 
+	Scenario: testing with big
+		Given CSV "big"
 
 	#Scenario:
 		#Given database "studentTestData1.sql"
