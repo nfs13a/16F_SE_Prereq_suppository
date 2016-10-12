@@ -13,23 +13,60 @@ import java.util.Vector;
 import java.util.Map;
 import java.util.HashMap;
 import java.io.*;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 public class StudentCourseManager {
 
 	private String csvPath;
 	private static Connection conn = null;
 	private static Statement stmt = null;
-	private String lol = new File("").getAbsolutePath();
+	private static String lol = new File("").getAbsolutePath();
 	private static Vector<String> allBanners;
 	private static Vector<String> allCodes;
 	private static Vector<String> allCIs;
 	private static Vector<String> allSCTs;
 
 	public StudentCourseManager(String CSV) {
-		if (CSV.equals("big")) { csvPath = "C:/Users/CPU8/Google Drive/Software Engineering/Project 1 Local backups/cs374_anon.csv";
+		if (CSV.equals("big")) {
+			
+			//csvPath = "C:/Users/CPU8/Google Drive/Software Engineering/Project 1 Local backups/cs374_anon.csv";
+/*
+			try {
+				Runtime.getRuntime().exec(lol.replace("\\", "/") + "implementation/help.bat");
+				
+			} catch (IOException ie) {
+				Thread.sleep
+			}*/
+			
+			csvPath = lol + "/implementation/cs374_anon.csv";
 			System.out.println("big");
 		}
 		else csvPath = lol + "/tests/" + CSV;
+		
+		allBanners = new Vector<String>();
+		allCodes = new Vector<String>();
+		allCIs = new Vector<String>();
+		allSCTs = new Vector<String>();
+	}
+	
+	public StudentCourseManager() throws SQLException {
+		final String DB_URL = "jdbc:mysql://localhost/";
+
+		// Database credentials
+		final String USER = "root";
+		final String PASS = ""; // insert your password here
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = (Connection) DriverManager.getConnection(DB_URL, USER, PASS);
+		} catch (ClassNotFoundException e) {
+			System.err.println("Unable to get mysql driver: " + e);
+		} catch (SQLException e) {
+			System.err.println("Unable to connect to server: " + e);
+		}
+		stmt = conn.createStatement();
+		stmt.executeUpdate("USE STUDENTS;");
 		
 		allBanners = new Vector<String>();
 		allCodes = new Vector<String>();
@@ -49,12 +86,10 @@ public class StudentCourseManager {
 			try {
 				br = new BufferedReader(new FileReader(csvPath));
 				int i = 1;
-				FileWriter studentCSV = new FileWriter(
-						"C:/ProgramData/MySQL/MySQL Server 5.6/Data/students/studentTable.csv");
-				FileWriter codeCSV = new FileWriter(
-						"C:/ProgramData/MySQL/MySQL Server 5.6/Data/students/codeTable.csv");
-				FileWriter ciCSV = new FileWriter("C:/ProgramData/MySQL/MySQL Server 5.6/Data/students/ciTable.csv");
-				FileWriter sctCSV = new FileWriter("C:/ProgramData/MySQL/MySQL Server 5.6/Data/students/sctTable.csv");
+				FileWriter studentCSV = new FileWriter(lol + "/studentTable.csv");
+				FileWriter codeCSV = new FileWriter(lol + "/codeTable.csv");
+				FileWriter ciCSV = new FileWriter(lol + "/ciTable.csv");
+				FileWriter sctCSV = new FileWriter(lol + "/sctTable.csv");
 
 				while ((line = br.readLine()) != null) {
 					String[] stuff = StudentCourseManager.newSplit(line);
@@ -164,13 +199,11 @@ public class StudentCourseManager {
 	}
 
 	private static void createDatabases(String file) throws FileNotFoundException, IOException, SQLException {
-
 		final String DB_URL = "jdbc:mysql://localhost/";
 
 		// Database credentials
 		final String USER = "root";
 		final String PASS = ""; // insert your password here
-
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = (Connection) DriverManager.getConnection(DB_URL, USER, PASS);
@@ -222,7 +255,7 @@ public class StudentCourseManager {
 	 */
 
 	private static void insertStudent(String csvIn) throws SQLException {
-		String sqlStudent = "LOAD DATA INFILE '" + csvIn + "' INTO TABLE student " + "FIELDS TERMINATED BY ','"
+		String sqlStudent = "LOAD DATA LOCAL INFILE '" + lol.replace("\\", "/")+ "/" + csvIn + "' INTO TABLE student " + "FIELDS TERMINATED BY ','"
 				+ "LINES TERMINATED BY '\n';";
 
 		// System.out.println(sqlStudent);
@@ -251,7 +284,7 @@ public class StudentCourseManager {
 	}
 
 	private static void insertCourse(String csvIn) throws SQLException {
-		String sqlCourse = "LOAD DATA INFILE '" + csvIn + "' INTO TABLE course " + "FIELDS TERMINATED BY ','"
+		String sqlCourse = "LOAD DATA LOCAL INFILE '" + lol.replace("\\", "/")+ "/" + csvIn + "' INTO TABLE course " + "FIELDS TERMINATED BY ','"
 				+ "LINES TERMINATED BY '\n';";
 
 		// System.out.println(sqlCourse);
@@ -263,7 +296,7 @@ public class StudentCourseManager {
 	}
 
 	private static void insertCourseInstance(String csvIn) throws SQLException {
-		String sqlCourseInstance = "LOAD DATA INFILE '" + csvIn + "' INTO TABLE courseInstances "
+		String sqlCourseInstance = "LOAD DATA LOCAL INFILE '" + lol.replace("\\", "/")+ "/" + csvIn + "' INTO TABLE courseInstances "
 				+ "FIELDS TERMINATED BY ','" + "LINES TERMINATED BY '\n';";
 
 		// System.out.println(sqlCourseInstance);
@@ -286,7 +319,7 @@ public class StudentCourseManager {
 	}
 
 	private static void insertStudentCourseTaken(String csvIn) throws SQLException {
-		String sqlSCT = "LOAD DATA INFILE '" + csvIn + "' INTO TABLE studentCoursesTaken " + "FIELDS TERMINATED BY ','"
+		String sqlSCT = "LOAD DATA LOCAL INFILE '" + lol.replace("\\", "/")+ "/" + csvIn + "' INTO TABLE studentCoursesTaken " + "FIELDS TERMINATED BY ','"
 				+ "LINES TERMINATED BY '\n';";
 
 		// System.out.println(sqlSCT);
@@ -419,6 +452,16 @@ public class StudentCourseManager {
 		rs.next();
 		return rs.getInt("prereqEarnedHours");
 	}
+	
+	public int getCRNEarnedHoursPrereq(String crn, String code) throws SQLException {
+		// System.out.println("SELECT prereqEarnedHours FROM course WHERE code =
+		// '(SELECT code FROM courseInstances WHERE CRN = '" + crn + "');)");
+		ResultSet rs = stmt.executeQuery(
+				"SELECT prereqEarnedHours FROM course WHERE code = (SELECT code FROM courseInstances WHERE CRN = '"
+						+ crn + "' AND code = '"+ code +"');");
+		rs.next();
+		return rs.getInt("prereqEarnedHours");
+	}
 
 	public double getCRNGPAPrereq(String crn) throws SQLException {
 		ResultSet rs = stmt.executeQuery(
@@ -428,10 +471,26 @@ public class StudentCourseManager {
 		return rs.getFloat("prereqGPA");
 	}
 
+	public double getCRNGPAPrereq(String crn,String code) throws SQLException {
+		ResultSet rs = stmt.executeQuery(
+				"SELECT prereqGPA FROM course WHERE code = (SELECT code FROM courseInstances WHERE CRN = '"
+						+ crn + "' AND code = '"+ code +"');");
+		rs.next();
+		return rs.getFloat("prereqGPA");
+	}
+	
 	public String getCRNPrereqClass(String crn) throws SQLException {
 		ResultSet rs = stmt.executeQuery(
 				"SELECT prereqClass FROM course WHERE code = (SELECT code FROM courseInstances WHERE CRN = '" + crn
 						+ "');");
+		rs.next();
+		return rs.getString("prereqClass");
+	}
+	
+	public String getCRNPrereqClass(String crn,String code) throws SQLException {
+		ResultSet rs = stmt.executeQuery(
+				"SELECT prereqClass FROM course WHERE code = (SELECT code FROM courseInstances WHERE CRN = '"
+						+ crn + "' AND code = '"+ code +"');");
 		rs.next();
 		return rs.getString("prereqClass");
 	}
@@ -462,6 +521,26 @@ public class StudentCourseManager {
 				&& convertClassification(studentClass(banner)) >= convertClassification(getCRNPrereqClass(crn))
 				&& meetsAllCourseAndGradePrereqs;
 	}
+	
+	public boolean studentMeetsPrereqs(String banner, String crn, String code) throws SQLException {
+		boolean meetsAllCourseAndGradePrereqs = true;
+		Statement thingstmt = conn.createStatement();
+		ResultSet rs = thingstmt.executeQuery(
+				"SELECT * FROM prereqCourse WHERE codePost = (SELECT code FROM courseInstances WHERE CRN = '" + crn
+				+ "' AND code = '" + code + "');");
+		while (rs.next()) {
+			meetsAllCourseAndGradePrereqs = meetsAllCourseAndGradePrereqs
+					&& studentMeetsCourseAndGradePrereq(banner, rs.getString("codePre"), rs.getString("grade"));
+			// System.out.println("for " + rs.getString("codePre") + ": " +
+			// studentMeetsCourseAndGradePrereq(banner, rs.getString("codePre"),
+			// rs.getString("grade")));
+		}
+
+		return earnedHoursOfStudent(banner) >= getCRNEarnedHoursPrereq(crn,code)
+				&& getGPAOfStudent(banner) >= getCRNGPAPrereq(crn,code)
+				&& convertClassification(studentClass(banner)) >= convertClassification(getCRNPrereqClass(crn,code))
+				&& meetsAllCourseAndGradePrereqs;
+	}
 
 	public String getAllStudentsThatDoNotMeetPrereqs(String crn) throws SQLException {
 		String all = "";
@@ -481,6 +560,24 @@ public class StudentCourseManager {
 		return all;
 	}
 
+	public String getAllStudentsThatDoNotMeetPrereqs(String crn,String code) throws SQLException {
+		String all = "";
+		// ResultSet rs = stmt.executeQuery("SELECT * as total FROM
+		// studentCoursesTaken WHERE CRN = '" + crn + "';");
+		// System.out.println("###########################################################################################"
+		// + rs.getInt("total"));
+		Statement thingstmt = conn.createStatement();
+		ResultSet rs = thingstmt
+				.executeQuery("SELECT banner FROM studentCoursesTaken WHERE grade = '' AND CRN = '" + crn + "' AND code = '"+ code+ "';");
+		while (rs.next()) {
+			// System.out.println(rs.getString("banner"));
+			if (!studentMeetsPrereqs(rs.getString("banner"), crn,code))
+				all += rs.getString("banner") + ",";
+			// System.out.println("all: " + all);
+		}
+		return all;
+	}
+	
 	private static String[] newSplit(String str) {
 		// guaranteed to have 147 columns; any more are a mistake and/or not
 		// meaningful

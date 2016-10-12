@@ -246,6 +246,7 @@ Feature: people take a class
 
 	Scenario: testing with big
 		Given CSV "big"
+		Then students "000911162," CRN "14788" with code "ACCT324"
 
 	#Scenario:
 		#Given database "studentTestData1.sql"

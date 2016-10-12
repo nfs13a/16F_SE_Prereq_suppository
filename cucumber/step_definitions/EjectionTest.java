@@ -189,4 +189,9 @@ public class EjectionTest {
 	    // Write code here that turns the phrase above into concrete actions
 		assertEquals(output,scm.getPrereqsOfCRN(crn));
 	}
+	
+	@Then("^students \"([^\"]*)\" CRN \"([^\"]*)\" with code \"([^\"]*)\"$")
+	public void studentsCRNWithCode(String list, String crn, String code) throws Throwable {
+	    assertEquals(scm.getAllStudentsThatDoNotMeetPrereqs(crn, code), list);
+	}
 }
