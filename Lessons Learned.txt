@@ -1,0 +1,9 @@
+Lessons Learned
+-Test with mac earlier. 
+-Chromebooks are terrible for programming.
+-Powershell is actually useful. Batch files even moreso.
+-Small commitments at each demo works out well. Prioritization helped keep things relatively manageable.
+-Failsoft. Don't make brittle programs.
+-Test/optimize for actual data sooner. Testing with big csv would have been more beneficial earlier if we'd figured out how to not make it take hours.
+-Write test first/sooner. Most of our work had tests written first, but a bit of it was done backwards with tests afterwards.
+-Making the interface out of cucumber sooner isn't difficult, but could have been done sooner.
