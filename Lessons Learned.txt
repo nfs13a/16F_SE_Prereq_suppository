@@ -1,4 +1,5 @@
 Lessons Learned
+Steven:
 -Test with mac earlier. 
 -Chromebooks are terrible for programming.
 -Powershell is actually useful. Batch files even moreso.
@@ -7,3 +8,10 @@ Lessons Learned
 -Test/optimize for actual data sooner. Testing with big csv would have been more beneficial earlier if we'd figured out how to not make it take hours.
 -Write test first/sooner. Most of our work had tests written first, but a bit of it was done backwards with tests afterwards.
 -Making the interface out of cucumber sooner isn't difficult, but could have been done sooner.
+
+Nevan:
+-We should start divying up work to be done over the weekend. We do not want to meet, but we need to use the time.
+-Some iterations are short than others in this class, and that should affect our work schedule.
+-Make sure to always start an iteration with cucumber.
+-Work for less time on more days rather than for more time on fewer days.
+-Things always take longer.
