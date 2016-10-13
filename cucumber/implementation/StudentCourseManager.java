@@ -378,10 +378,9 @@ public class StudentCourseManager {
 
 			lne = lnestmt.executeQuery("SELECT hours FROM course WHERE code = '" + tempCourse + "';");
 			lne.next();
-
 			int tempHours = lne.getInt("hours");
 			if (!tempCourse.equals("")) {
-				if (bestPassingCodesAndGrades.containsKey(tempCourse)
+				if (bestPassingCodesAndGrades.containsKey(tempCourse) && bestPassingCodesAndGrades.get(tempCourse) != null
 						&& bestPassingCodesAndGrades.get(tempCourse).charAt(0) < tempGrade.charAt(0)
 						&& tempGrade.charAt(0) < 'F' && tempGrade.charAt(0) >= 'A') {
 					totalPoints -= convertGrade(bestPassingCodesAndGrades.get(tempCourse)) * tempHours;
