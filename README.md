@@ -3,6 +3,23 @@ Software Engineering Project Team
 
 Team Name: Lukkedoerendunandurraskewdylooshoofermoyportertooryzooysphalnabortansporthaokansakroidverjkapakkapuk
 
+#How to run our tool:
+
+-----------
+OSX       |
+-----------
+1. Go to Final Code directory in terminal
+2. Run ReevesRunThis file
+3. Follow the instructions
+
+-------------
+Windows     |
+-------------
+1. Go to Final Code directory in command prompt
+2. Enable PowerShell (Google search)
+3. Run FullTool.bat file
+4. Follow the instructions
+
 #Preston (well formatted)
 
 -----------
