@@ -564,7 +564,7 @@ public class StudentCourseManager {
 		return all;
 	}
 
-	public String getAllStudentsThatDoNotMeetPrereqs(String crn,String code) throws SQLException {
+	public String getAllStudentsThatDoNotMeetPrereqs(String crn, String code) throws SQLException {
 		Statement thingstmt4 = conn.createStatement();
 		ResultSet rs4 = thingstmt4
 				.executeQuery("SELECT COUNT(*) as total FROM courseInstances WHERE code = '" + code + "' AND CRN = '" + crn + "';");
@@ -615,6 +615,28 @@ public class StudentCourseManager {
 		if (all.equals(""))
 			return "No found CRN's";
 		return all.substring(0, all.length() - 2);
+	}
+	
+	public String allCoursesWithEjects() throws SQLException {
+		Statement thingstmt = conn.createStatement();
+		ResultSet rs = thingstmt
+				.executeQuery("SELECT CRN, code FROM courseInstances;");
+		String all = "";
+		while (rs.next()) {
+			String code = rs.getString("code");
+			String crn = rs.getString("CRN");
+			String temp = getAllStudentsThatDoNotMeetPrereqs(crn, code) + "\n";
+			/*System.out.println(temp);
+			System.out.println(!temp.contains("There are no prereqs for this course."));*/
+			if (!temp.equals("This course does not exist.") && !temp.contains("There are no prereqs for this course.") && temp.length() > 35) {
+				//System.out.println("inserting " + code + ": " + crn + " from result: " + temp);
+				all += code + ": " + crn + "\n";
+			}
+		}
+		
+		//all.replace("This course does not exist.\n", "");
+		
+		return all;
 	}
 	
 	private static String[] newSplit(String str) {
