@@ -1,4 +1,3 @@
 javac -cp "jars/*;." implementation/TestSCM.java
-@ECHO OFF
-powershell.exe -Command "& 'cucumber.ps1'"
+unzip ./implementation/cs374_anon.zip -d ./implementation
 java -cp "jars/*;." implementation/TestSCM
