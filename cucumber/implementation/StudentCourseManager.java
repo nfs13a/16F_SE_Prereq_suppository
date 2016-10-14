@@ -559,6 +559,28 @@ public class StudentCourseManager {
 	}
 
 	public String getAllStudentsThatDoNotMeetPrereqs(String crn,String code) throws SQLException {
+		Statement thingstmt4 = conn.createStatement();
+		ResultSet rs4 = thingstmt4
+				.executeQuery("SELECT COUNT(*) as total FROM courseInstances WHERE code = '" + code + "' AND CRN = '" + crn + "';");
+		rs4.next();
+		if (rs4.getInt("total") == 0)
+			return "This course does not exist.";
+		
+		Statement thingstmt2 = conn.createStatement();
+		ResultSet rs2 = thingstmt2
+				.executeQuery("SELECT COUNT(*) as total FROM prereqCourse WHERE codePost = '" + code + "';");
+		rs2.next();
+		int numPrereqs = rs2.getInt("total");
+		
+		Statement thingstmt3 = conn.createStatement();
+		ResultSet rs3 = thingstmt3
+				.executeQuery("SELECT prereqGPA, prereqClass, prereqEarnedHours FROM course WHERE code = '" + code + "';");
+		rs3.next();
+		
+		if (numPrereqs == 0 && rs3.getFloat("prereqGPA") == 0.0 
+				&& rs3.getString("prereqClass").equals("FR") && rs3.getInt("prereqEarnedHours") == 0) {
+			return "There are no prereqs for this course";
+		}
 		String all = "";
 		// ResultSet rs = stmt.executeQuery("SELECT * as total FROM
 		// studentCoursesTaken WHERE CRN = '" + crn + "';");
@@ -566,14 +588,25 @@ public class StudentCourseManager {
 		// + rs.getInt("total"));
 		Statement thingstmt = conn.createStatement();
 		ResultSet rs = thingstmt
-				.executeQuery("SELECT banner FROM studentCoursesTaken WHERE grade = '' AND CRN = '" + crn + "' AND code = '"+ code+ "';");
+				.executeQuery("SELECT banner FROM studentCoursesTaken WHERE grade = '' AND CRN = '" + crn + "' AND code = '"+ code + "';");
 		while (rs.next()) {
 			// System.out.println(rs.getString("banner"));
 			if (!studentMeetsPrereqs(rs.getString("banner"), crn,code))
 				all += rs.getString("banner") + ",";
 			// System.out.println("all: " + all);
 		}
-		return all;
+		return "Banners that should not belong: " + all;
+	}
+	
+	public String getAllCRNs(String code) throws SQLException {
+		Statement thingstmt = conn.createStatement();
+		ResultSet rs = thingstmt
+				.executeQuery("SELECT CRN FROM courseInstances WHERE code = '"+ code + "';");
+		String all = "";
+		while (rs.next()) {
+			all += rs.getString("CRN") + ", ";
+		}
+		return all.substring(0, all.length() - 2);
 	}
 	
 	private static String[] newSplit(String str) {
