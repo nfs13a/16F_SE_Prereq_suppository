@@ -9,7 +9,7 @@ Team Name: Lukkedoerendunandurraskewdylooshoofermoyportertooryzooysphalnabortans
 OSX       |
 -----------
 1. Go to Final Code directory in terminal
-2. Run ReevesRunThis file
+2. Run ReevesRunThisTrulySo file
 3. Follow the instructions
 
 -------------
