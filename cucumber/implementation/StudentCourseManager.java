@@ -357,7 +357,9 @@ public class StudentCourseManager {
 					totalHours += lne.getInt("hours");
 				}
 				//System.out.println("This: \"" + tempGrade + "\"");
-			} else if (bestPassingCodesAndGrades.get(tempCourse) != null && !bestPassingCodesAndGrades.get(tempCourse).equals("") && bestPassingCodesAndGrades.get(tempCourse).charAt(0) > tempGrade.charAt(0)) {
+				//System.out.println("Spec: \"" + tempGrade.charAt(0) + "\"");
+			} else if (bestPassingCodesAndGrades.get(tempCourse) != null && !tempGrade.equals("")
+					&& !bestPassingCodesAndGrades.get(tempCourse).equals("") && bestPassingCodesAndGrades.get(tempCourse).charAt(0) > tempGrade.charAt(0)) {
 				bestPassingCodesAndGrades.put(tempCourse, tempGrade);
 				// ResultSet rst = stmt.executeQuery("SELECT COUNT(CRN) FROM
 				// studentCoursesTaken WHERE banner = '" + banner + "' AND code
@@ -583,7 +585,7 @@ public class StudentCourseManager {
 		
 		if (numPrereqs == 0 && rs3.getFloat("prereqGPA") == 0.0 
 				&& rs3.getString("prereqClass").equals("FR") && rs3.getInt("prereqEarnedHours") == 0) {
-			return "There are no prereqs for this course";
+			return "There are no prereqs for this course.";
 		}
 		String all = "";
 		// ResultSet rs = stmt.executeQuery("SELECT * as total FROM
@@ -610,6 +612,8 @@ public class StudentCourseManager {
 		while (rs.next()) {
 			all += rs.getString("CRN") + ", ";
 		}
+		if (all.equals(""))
+			return "No found CRN's";
 		return all.substring(0, all.length() - 2);
 	}
 	
