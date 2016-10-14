@@ -356,7 +356,8 @@ public class StudentCourseManager {
 
 					totalHours += lne.getInt("hours");
 				}
-			} else if (bestPassingCodesAndGrades.get(tempCourse).charAt(0) > tempGrade.charAt(0)) {
+				//System.out.println("This: \"" + tempGrade + "\"");
+			} else if (bestPassingCodesAndGrades.get(tempCourse) != null && !bestPassingCodesAndGrades.get(tempCourse).equals("") && bestPassingCodesAndGrades.get(tempCourse).charAt(0) > tempGrade.charAt(0)) {
 				bestPassingCodesAndGrades.put(tempCourse, tempGrade);
 				// ResultSet rst = stmt.executeQuery("SELECT COUNT(CRN) FROM
 				// studentCoursesTaken WHERE banner = '" + banner + "' AND code
@@ -379,7 +380,10 @@ public class StudentCourseManager {
 			lne = lnestmt.executeQuery("SELECT hours FROM course WHERE code = '" + tempCourse + "';");
 			lne.next();
 			int tempHours = lne.getInt("hours");
-			if (!tempCourse.equals("")) {
+			
+			//System.out.println("grade: \"" + bestPassingCodesAndGrades.get(tempCourse) + "\"");
+			
+			if (!tempCourse.equals("") && bestPassingCodesAndGrades.get(tempCourse) != null && !bestPassingCodesAndGrades.get(tempCourse).equals("")) {
 				if (bestPassingCodesAndGrades.containsKey(tempCourse) && bestPassingCodesAndGrades.get(tempCourse) != null
 						&& bestPassingCodesAndGrades.get(tempCourse).charAt(0) < tempGrade.charAt(0)
 						&& tempGrade.charAt(0) < 'F' && tempGrade.charAt(0) >= 'A') {
