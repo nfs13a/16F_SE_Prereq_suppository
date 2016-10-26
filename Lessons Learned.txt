@@ -15,3 +15,10 @@ Nevan:
 -Make sure to always start an iteration with cucumber.
 -Work for less time on more days rather than for more time on fewer days.
 -Things always take longer.
+
+Preston:
+-Doing things takes time, so start doing things sooner.
+-Think about possible ways the program may fail.
+-Teamwork is important to success on a project.
+-Write enough tests to thoroughly cover possible cases
+dd
